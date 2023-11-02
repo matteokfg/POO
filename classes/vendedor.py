@@ -16,7 +16,7 @@ class Vendedor(Pessoa):
 
     @codigo_loja.setter
     def codigo_loja(self, codigo_loja):
-        if validate_inteiro(codigo_loja)
+        if validate_inteiro(codigo_loja):
             self.__codigo_loja = codigo_loja
 
     def validate_codigo_loja(self, codigo_loja):

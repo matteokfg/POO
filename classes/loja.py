@@ -7,9 +7,9 @@ from util import validate_inteiro
 class Loja:
     def __init__(self, cnpj, nome, email):
         self.__codigo_loja = None
-        self.__cnpj = validate_inteiro(cnpj)
-        self.__nome = validate_inteiro(nome)
-        self.__email = validate_inteiro(email)
+        self.__cnpj = self.validate_cnpj(cnpj)
+        self.__nome = self.validate_nome(nome)
+        self.__email = self.validate_email(email)
 
     @property
     def codigo_loja(self):
@@ -46,3 +46,15 @@ class Loja:
     def email(self, email):
         if validate_inteiro(email):
             self.__email = email
+
+    def validate_cnpj(self, cnpj):
+        if validate_inteiro(cnpj):
+            return cnpj
+        
+    def validate_nome(self, nome):
+        if validate_inteiro(nome):
+            return nome
+        
+    def validate_email(self, email):
+        if validate_inteiro(email):
+            return email

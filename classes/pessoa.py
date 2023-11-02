@@ -1,15 +1,16 @@
-from datetime import date
+import sys
+sys.path.insert(1, 'POO/util')
+from util import *
+
 import re
 regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
 
 class Pessoa:
-
     def __init__(self, codigo, nome, senha, data_de_nascimento, email, is_ativo):
-
         self.__codigo = codigo
         self.__nome = nome
         self.__senha = senha
-        self.__data_de_nascimento = data_de_nascimento
+        self.__data_de_nascimento = self.validate_data_de_nascimento(data_de_nascimento)
         self.__email = email
         self.__is_ativo = is_ativo
 
@@ -19,12 +20,8 @@ class Pessoa:
     
     @codigo.setter
     def codigo(self, novo_codigo):
-        try:
-            int(novo_codigo)
+      if validate_inteiro(novo_codigo):
             self.__codigo = novo_codigo
-        except ValueError:
-            print("Apenas são permitidos valores inteiros")
-        
 
     @property
     def nome(self):
@@ -49,11 +46,8 @@ class Pessoa:
     @data_de_nascimento.setter
     def data_de_nascimento(self, nova_data_de_nascimento):
         nova_data_de_nascimento = str(nova_data_de_nascimento[6:]+'-'+nova_data_de_nascimento[3:5]+'-'+nova_data_de_nascimento[0:2])
-        try:
-            date.fromisoformat(nova_data_de_nascimento)
+        if validate_data(nova_data_de_nascimento):
             self.__data_de_nascimento = nova_data_de_nascimento
-        except ValueError:
-            print("Data não válida!")
         
 
     @property
@@ -78,3 +72,9 @@ class Pessoa:
             self.__is_ativo = novo_is_ativo
         else:
             raise "Status não válido"
+        
+
+    def validate_data_de_nascimento(self, nova_data_de_nascimento):
+        nova_data_de_nascimento = str(nova_data_de_nascimento[6:]+'-'+nova_data_de_nascimento[3:5]+'-'+nova_data_de_nascimento[0:2])
+        if validate_data(nova_data_de_nascimento):
+            return nova_data_de_nascimento
