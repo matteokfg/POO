@@ -19,3 +19,19 @@ def validate_data(nova_data_de_nascimento):
     except ValueError:
         print("Data não válida!")
         return False
+    
+def validate_bool(booleano):
+    if booleano == False or booleano == True:
+        return True
+    else:
+        print("Status não válido")
+        return False
+
+import re
+regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
+def validate_email(novo_email):
+    if(re.fullmatch(regex, novo_email)):
+        return True
+    else:
+        print("Email Inválido!")
+        return False
