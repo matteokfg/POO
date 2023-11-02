@@ -1,6 +1,6 @@
 import sys
 sys.path.insert(1, 'POO/util')
-from util import validate_inteiro
+from util import *
 
 
 
@@ -26,7 +26,7 @@ class Loja:
     
     @cnpj.setter
     def cnpj(self, cnpj):
-        if validate_inteiro(cnpj):
+        if validate_string(cnpj):
             self.__cnpj = cnpj
     
     @property
@@ -35,7 +35,7 @@ class Loja:
     
     @nome.setter
     def nome(self, nome):
-        if validate_inteiro(nome):
+        if validate_string(nome):
             self.__nome = nome
     
     @property
@@ -44,17 +44,17 @@ class Loja:
     
     @email.setter
     def email(self, email):
-        if validate_inteiro(email):
+        if validate_email(email):
             self.__email = email
 
     def validate_cnpj(self, cnpj):
-        if validate_inteiro(cnpj):
+        if validate_string(cnpj):
             return cnpj
         
     def validate_nome(self, nome):
-        if validate_inteiro(nome):
+        if validate_string(nome):
             return nome
         
     def validate_email(self, email):
-        if validate_inteiro(email):
+        if validate_email(email):
             return email

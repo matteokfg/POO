@@ -35,3 +35,10 @@ def validate_email(novo_email):
     else:
         print("Email Inválido!")
         return False
+    
+def validate_string(frase):
+    if type(frase) == type("_"):
+        return True
+    else:
+        print("Apenas são permitidos valores do tipo String!")
+        return False
