@@ -76,4 +76,5 @@ class Pessoa:
     def is_ativo(self, novo_is_ativo):
         if novo_is_ativo == False or novo_is_ativo == True:
             self.__is_ativo = novo_is_ativo
-        raise "Data não válida"
+        else:
+            raise "Status não válido"
