@@ -1,31 +1,48 @@
+import sys
+sys.path.insert(1, 'POO/util')
+from util import validate_inteiro
+
+
 
 class Loja:
     def __init__(self, cnpj, nome, email):
-        self.__id_loja = None
-        self.__cnpj = cnpj
-        self.__nome = nome
-        self.__email = email
+        self.__codigo_loja = None
+        self.__cnpj = validate_inteiro(cnpj)
+        self.__nome = validate_inteiro(nome)
+        self.__email = validate_inteiro(email)
 
-    def get_id_loja(self):
-        return self.__id_loja
+    @property
+    def codigo_loja(self):
+        return self.__codigo_loja
     
-    def set_id_loja(self, id_loja):
-        self.__id_loja = id_loja
+    @codigo_loja.setter
+    def codigo_loja(self, codigo_loja):
+        if validate_inteiro(codigo_loja):
+            self.__codigo_loja = codigo_loja
     
-    def get_cnpj(self):
+    @property
+    def cnpj(self):
         return self.__cnpj
     
-    def set_cnpj(self, cnpj):
-        self.__cnpj = cnpj
+    @cnpj.setter
+    def cnpj(self, cnpj):
+        if validate_inteiro(cnpj):
+            self.__cnpj = cnpj
     
-    def get_nome(self):
+    @property
+    def nome(self):
         return self.__nome
     
-    def set_nome(self, nome):
-        self.__nome = nome
+    @nome.setter
+    def nome(self, nome):
+        if validate_inteiro(nome):
+            self.__nome = nome
     
-    def get_email(self):
+    @property
+    def email(self):
         return self.__email
     
-    def set_email(self, email):
-        self.__email = email
+    @email.setter
+    def email(self, email):
+        if validate_inteiro(email):
+            self.__email = email
