@@ -5,8 +5,8 @@ from util import *
 
 
 class Loja:
-    def __init__(self, cnpj, nome, email):
-        self.__codigo_loja = None
+    def __init__(self, codigo_loja, cnpj, nome, email):
+        self.__codigo_loja = codigo_loja
         self.__cnpj = self.validate_cnpj(cnpj)
         self.__nome = self.validate_nome(nome)
         self.__email = self.validate_email(email)
