@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(1, 'POO/util')
+#sys.path.insert(1, 'POO/util')
 from util import *
 
 
@@ -78,4 +78,9 @@ class Pessoa:
     def validate_novo_email(self, novo_email):
         if validate_email(novo_email):
             return novo_email
+        
+if __name__ == "__main__":
 
+    pessoa1 = Pessoa(1, "Raul", "1234", "18/09/1997","raul@raul.com", True)
+    print(pessoa1.nome)
+    print(pessoa1.data_de_nascimento)

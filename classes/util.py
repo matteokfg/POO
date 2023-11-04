@@ -1,10 +1,7 @@
-banco_de_dados = None
-
-
 def increment_id(identifier):
     return identifier + 1
 
-##############################       Validacoes        ####################################################
+
 def validate_inteiro(inteiro):
         try:
             int(inteiro)
