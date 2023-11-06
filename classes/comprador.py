@@ -1,5 +1,6 @@
 from pessoa import Pessoa
 from endereco import Endereco
+from util import *
 
 class Comprador(Pessoa, Endereco):
 
@@ -35,7 +36,34 @@ class Comprador(Pessoa, Endereco):
     def cartao(self, novo_cartao):
         self.__cartao = novo_cartao
 
+    def incluir_banco(self):
 
+        # Carregar o conteúdo do arquivo JSON em um objeto Python
+        with open(dados_comprador) as f:
+            data = json.load(f)
+
+        # Imprimir todos os ids cadastrados
+        for item in data:
+            print(item['codigo'])
+
+        # Insere novo cadastro
+        with open(dados_comprador, 'a', encoding='utf-8') as f:
+            novo_cliente = {'codigo': self.__codigo,
+                            'nome': self.__nome,
+                            'senha': self.__senha,
+                            'data_de_nascimento': self.__data_de_nascimento,
+                            'email': self.__email,
+                            'is_ativo': self.__is_ativo,
+                            'logradouro': self.__logradouro,
+                            'numero': self.__numero,
+                            'complemento': self.__complemento,
+                            'cidade': self.__cidade,
+                            'uf': self.__uf,
+                            'cep': self.__cep,
+                            'cpf': self.__cpf,
+                            'rg': self.__rg,
+                            'cartao': self.__cartao}
+            json.dump(novo_cliente, f)
 
 
 

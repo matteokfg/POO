@@ -1,3 +1,9 @@
+import os
+import time
+import json
+
+dados_comprador = "banco_de_dados\\comprador.json"
+
 def increment_id(identifier):
     return identifier + 1
 

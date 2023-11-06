@@ -1,4 +1,5 @@
 banco_de_dados = None
+import os
 
 
 def increment_id(identifier):
