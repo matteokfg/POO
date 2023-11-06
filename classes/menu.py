@@ -1,5 +1,6 @@
 from login import Login
 from util import *
+from comprador import Comprador
 
 
 class Menu:
@@ -10,8 +11,17 @@ class Menu:
 
     def cadastrar_se(self):
         os.system('cls')
-        input("Informe seu nome: ")
-        input("Informe sua senha: ")
+        novo_comprador = Comprador()
+        novo_comprador.nome = input("Informe seu nome: ")
+        novo_comprador.senha = input("Informe sua senha: ")
+        novo_comprador.data_de_nascimento = input("Informe sua data de nascimento: ")
+        novo_comprador.email= input("Informe seu email: ")
+        novo_comprador.is_ativo = True
+        novo_comprador.logradouro = input("Informe seu logradouro: ")
+        novo_comprador.numero = input("Informe o número do logradouro: ")
+        novo_comprador.complemento = input("Informe o complemento: ")
+        novo_comprador.cidade = input("Informe sua cidade: ")
+        novo_comprador.uf = input("Informe o uf: ")
 
 
     def mostrar_opcoes_inicial(self):
