@@ -42,9 +42,12 @@ class Comprador(Pessoa, Endereco):
         with open(dados_comprador) as f:
             data = json.load(f)
 
-        # Imprimir todos os ids cadastrados
+        # Imprimir todos os codigos cadastrados
         for item in data:
-            print(item['codigo'])
+            try:
+                self.__codigo = int(item['codigo']) + 1
+            except:
+                self.__codigo = 1
 
         # Insere novo cadastro
         with open(dados_comprador, 'a', encoding='utf-8') as f:
