@@ -71,7 +71,6 @@ class Pessoa:
             return is_ativo
 
     def validate_data_de_nascimento(self, data_de_nascimento):
-        data_de_nascimento = str(data_de_nascimento[6:]+'-'+data_de_nascimento[3:5]+'-'+data_de_nascimento[0:2])
         if validate_data(data_de_nascimento):
             return data_de_nascimento
         

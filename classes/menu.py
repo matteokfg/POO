@@ -20,7 +20,10 @@ class Menu:
                 break
         cpf = input("Informe seu CPF: ")
         rg = input("Informe seu RG: ")
-        email= input("Informe seu email: ")
+        while True:
+            email= input("Informe seu email: ")
+            if validate_email(email):
+                break
         is_ativo = True
         logradouro = input("Informe seu logradouro: ")
         numero = input("Informe o número do logradouro: ")

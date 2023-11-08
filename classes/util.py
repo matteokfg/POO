@@ -3,7 +3,7 @@ import time
 import json
 from datetime import datetime
 
-dados_comprador = "banco_de_dados\\comprador.json"
+banco = "F:\\Uniso\\poo\\POO\\classes\\banco_de_dados\\banco_de_dados.json"
 
 def increment_id(identifier):
     return identifier + 1
