@@ -6,8 +6,8 @@ class Comprador(Pessoa, Endereco):
 
     def __init__(self, codigo, nome, senha, data_de_nascimento, email, is_ativo,
                  logradouro, numero, complemento, cidade, uf, cep, cpf, rg, cartao):
-        Pessoa.__init__(codigo, nome, senha, data_de_nascimento, email, is_ativo)
-        Endereco.__init__(logradouro, numero, complemento, cidade, uf, cep)
+        Pessoa.__init__(self, codigo, nome, senha, data_de_nascimento, email, is_ativo)
+        Endereco.__init__(self, logradouro, numero, complemento, cidade, uf, cep)
         self.__cpf = cpf
         self.__rg = rg
         self.__cartao = cartao

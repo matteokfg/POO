@@ -1,6 +1,7 @@
 import os
 import time
 import json
+from datetime import datetime
 
 dados_comprador = "banco_de_dados\\comprador.json"
 
@@ -17,13 +18,13 @@ def validate_inteiro(inteiro):
             return False
 
 
-from datetime import date
-def validate_data(nova_data_de_nascimento):
+def validate_data(date_text):
+    date_format='%d/%m/%Y'
     try:
-        date.fromisoformat(nova_data_de_nascimento)
+        datetime.strptime(date_text, date_format)
         return True
     except ValueError:
-        print("Data não válida!")
+        print("Data não válida")
         return False
     
 def validate_bool(booleano):

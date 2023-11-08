@@ -11,17 +11,55 @@ class Menu:
 
     def cadastrar_se(self):
         os.system('cls')
-        novo_comprador = Comprador()
-        novo_comprador.nome = input("Informe seu nome: ")
-        novo_comprador.senha = input("Informe sua senha: ")
-        novo_comprador.data_de_nascimento = input("Informe sua data de nascimento: ")
-        novo_comprador.email= input("Informe seu email: ")
-        novo_comprador.is_ativo = True
-        novo_comprador.logradouro = input("Informe seu logradouro: ")
-        novo_comprador.numero = input("Informe o número do logradouro: ")
-        novo_comprador.complemento = input("Informe o complemento: ")
-        novo_comprador.cidade = input("Informe sua cidade: ")
-        novo_comprador.uf = input("Informe o uf: ")
+        codigo=1
+        nome = input("Informe seu nome: ")
+        senha = input("Informe sua senha: ")
+        while True:
+            data_de_nascimento = input("Informe sua data de nascimento: ")
+            if validate_data(data_de_nascimento):
+                break
+        cpf = input("Informe seu CPF: ")
+        rg = input("Informe seu RG: ")
+        email= input("Informe seu email: ")
+        is_ativo = True
+        logradouro = input("Informe seu logradouro: ")
+        numero = input("Informe o número do logradouro: ")
+        complemento = input("Informe o complemento: ")
+        cidade = input("Informe sua cidade: ")
+        uf = input("Informe o uf: ")
+        cep = input("Informe seu CEP: ")
+        cartao = input("Informe seu número de cartão de crédito/débito: ")
+        novo_comprador = Comprador(codigo=codigo,
+                                   nome=nome,
+                                   senha=senha,
+                                   data_de_nascimento=data_de_nascimento,
+                                   email=email,
+                                   is_ativo=is_ativo,
+                                   cpf=cpf,
+                                   rg=rg,
+                                   logradouro=logradouro,
+                                   numero=numero,
+                                   complemento=complemento,
+                                   cidade=cidade,
+                                   uf=uf,
+                                   cep=cep,
+                                   cartao=cartao)
+
+        
+        print(novo_comprador.nome)
+        print(novo_comprador.senha)
+        print(novo_comprador.data_de_nascimento)
+        print(novo_comprador.cpf)
+        print(novo_comprador.rg)
+        print(novo_comprador.email)
+        print(novo_comprador.is_ativo)
+        print(novo_comprador.logradouro)
+        print(novo_comprador.numero)
+        print(novo_comprador.complemento)
+        print(novo_comprador.cidade)
+        print(novo_comprador.uf)
+        print(novo_comprador.cep)
+        print(novo_comprador.cartao)
 
 
     def mostrar_opcoes_inicial(self):
