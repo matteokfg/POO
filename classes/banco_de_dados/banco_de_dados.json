@@ -16,23 +16,6 @@
             "uf": "NC",
             "cep": "12345-678",
             "cartao": "1234-5678-9012-3456"
-        },
-        {
-            "codigo": 2,
-            "nome": "Novo Comprador",
-            "senha": "nova_senha",
-            "data_de_nascimento": "1990-01-01",
-            "email": "novo@email.com",
-            "is_ativo": true,
-            "cpf": "12345678901",
-            "rg": "1234567",
-            "logradouro": "Rua Nova, 123",
-            "numero": "456",
-            "complemento": "Apto 4B",
-            "cidade": "Nova Cidade",
-            "uf": "NC",
-            "cep": "12345-678",
-            "cartao": "1234-5678-9012-3456"
         }
     ]
 }

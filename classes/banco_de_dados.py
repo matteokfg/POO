@@ -10,8 +10,7 @@ class Banco:
         with open(banco, "r", encoding='utf-8') as file:
             data = json.load(file)
 
-        if tipo == "comprador":
-            data["comprador"].append(dados)
+        data[tipo].append(dados)
 
 
         with open(banco, "w", encoding='utf-8') as file:
