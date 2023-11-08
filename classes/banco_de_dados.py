@@ -5,6 +5,20 @@ class Banco:
 
     def __init__(self):
          pass
+    
+    def consulta(self, parametro, tipo, texto):
+        with open(banco, "r", encoding='utf-8') as file:
+            data = json.load(file)
+
+        dados =[]
+
+        for i in data[tipo]:
+             if i[parametro] == texto:
+                  dados.append(i)
+
+        return dados
+
+
 
     def inserir(self, dados, tipo):
         with open(banco, "r", encoding='utf-8') as file:
@@ -37,4 +51,9 @@ if __name__ == "__main__":
             "cartao": "1234-5678-9012-3456",
         }
         db = Banco()
-        db.inserir(novo_comprador, "comprador")
+
+        # Inserir
+        #db.inserir(novo_comprador, "comprador")
+
+        # Consulta
+        print(db.consulta("cpf", "comprador", "12345678901"))
