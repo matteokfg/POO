@@ -1,1 +1,11 @@
-{}
+{
+    "BD":{
+        "Comprador": [],
+        "Vendedor": [],
+        "Loja": [],
+        "Pedido": [],
+        "Endereco": [],
+        "Comentario": [],
+        "Produto": []
+    }
+}

@@ -1,10 +1,12 @@
 import sys
 #sys.path.insert(1, 'POO/util')
 from util import *
+from connector import Connector
 
 
-class Pessoa:
+class Pessoa(Connector):
     def __init__(self, codigo, nome, senha, data_de_nascimento, email, is_ativo):
+        Connector.__init__("../banco_de_dados.json")
         self.__codigo = codigo
         self.__nome = nome
         self.__senha = senha

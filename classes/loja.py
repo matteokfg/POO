@@ -1,11 +1,13 @@
 import sys
 sys.path.insert(1, 'POO/util')
 from util import *
+from connector import Connector
 
 
 
-class Loja:
+class Loja(Connector):
     def __init__(self, codigo_loja, cnpj, nome, email):
+        Connector.__init__("../banco_de_dados.json")
         self.__codigo_loja = codigo_loja
         self.__cnpj = self.validate_cnpj(cnpj)
         self.__nome = self.validate_nome(nome)
