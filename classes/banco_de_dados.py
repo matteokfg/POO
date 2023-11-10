@@ -17,6 +17,10 @@ class Banco:
                   dados.append(i)
 
         return dados
+    
+    def remover(self, tipo, codigo):
+         
+         pass
 
 
 
@@ -57,3 +61,5 @@ if __name__ == "__main__":
 
         # Consulta
         print(db.consulta("cpf", "comprador", "12345678901"))
+
+        # Remover
