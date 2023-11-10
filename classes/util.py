@@ -1,9 +1,10 @@
 import os
+import sys
 import time
 import json
 from datetime import datetime
 
-banco = "F:\\Uniso\\poo\\POO\\classes\\banco_de_dados\\banco_de_dados.json"
+banco = sys.argv[0].replace(sys.argv[0].split("\\")[-1],'')+"banco_de_dados.json"
 
 def increment_id(identifier):
     return identifier + 1
