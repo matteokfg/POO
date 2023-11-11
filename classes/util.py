@@ -1,14 +1,9 @@
 import os
-import sys
 import time
 import json
 from datetime import datetime
 
-banco = sys.argv[0].replace(sys.argv[0].split("\\")[-1],'')+"banco_de_dados.json"
-
-def increment_id(identifier):
-    return identifier + 1
-
+banco = "..\\banco_de_dados.json"
 
 def validate_inteiro(inteiro):
         try:
