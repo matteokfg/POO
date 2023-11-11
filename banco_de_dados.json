@@ -1,11 +1,1 @@
-{
-    "BD":{
-        "Comprador": [],
-        "Vendedor": [],
-        "Loja": [],
-        "Pedido": [],
-        "Endereco": [],
-        "Comentario": [],
-        "Produto": []
-    }
-}
+{"BD": {"Comprador": [], "Vendedor": [{"Codigo": 1, "codigo": 0, "nome": "teste", "senha": "teste", "data_de_nascimento": "10/11/2023", "email": "teste@teste.com", "is_ativo": true, "codigo_loja": 0}], "Loja": [], "Pedido": [], "Endereco": [], "Comentario": [], "Produto": []}}
