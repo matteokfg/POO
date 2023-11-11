@@ -1,6 +1,8 @@
+from connector import Connector
 
-class Comentario:
+class Comentario(Connector):
     def __init__(self, codigo, codigo_comprador, codigo_produto, codigo_loja, descricao):
+        Connector.__init__("..\\banco_de_dados.json")
         self.__codigo = codigo
         self.__codigo_comprador = codigo_comprador
         self.__codigo_produto = codigo_produto
