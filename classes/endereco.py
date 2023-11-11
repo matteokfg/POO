@@ -2,7 +2,7 @@ from connector import Connector
 
 class Endereco(Connector):
     def __init__(self, logradouro, numero, complemento, cidade, uf, cep):
-        Connector.__init__("..\\banco_de_dados.json")
+        Connector.__init__("banco_de_dados.json")
         self.__logradouro = logradouro
         self.__numero = numero
         self.__complemento = complemento
