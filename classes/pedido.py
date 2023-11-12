@@ -1,9 +1,9 @@
 from connector import Connector
-from util import validate_inteiro, validate_float
+from util import validate_inteiro, validate_float, path_banco
 
 class Pedido(Connector):
     def __init__(self, codigo, codigos_produtos, quantidades, codigo_comprador, codigos_lojas):
-        Connector.__init__("banco_de_dados.json")
+        Connector.__init__(path_banco)
         self.__codigo = self.validate_codigo(codigo)
         self.__codigos_produtos = self.validate_lista_codigos(codigos_produtos)
         self.__quantidades = self.validate_lista_quantidades(quantidades)
@@ -13,7 +13,7 @@ class Pedido(Connector):
     @property
     def codigo(self):
         return self.__codigo
-    
+
     @codigo.setter
     def codigo(self, novo_codigo):
         if validate_inteiro(novo_codigo):
@@ -22,7 +22,7 @@ class Pedido(Connector):
     @property
     def codigos_produtos(self):
         return self.__codigos_produtos
-    
+
     @codigos_produtos.setter
     def codigos_produtos(self, novo_codigos_produtos):
         for novo_codigo_produto in novo_codigos_produtos:
@@ -33,7 +33,7 @@ class Pedido(Connector):
     @property
     def quantidades(self):
         return self.__quantidades
-    
+
     @quantidades.setter
     def quantidades(self, novo_quantidades):
         for novo_quantidade in novo_quantidades:
@@ -44,7 +44,7 @@ class Pedido(Connector):
     @property
     def codigo_comprador(self):
         return self.__codigo_comprador
-    
+
     @codigo_comprador.setter
     def codigo_comprador(self, novo_codigo_comprador):
         if validate_inteiro(novo_codigo_comprador):
@@ -53,7 +53,7 @@ class Pedido(Connector):
     @property
     def codigos_lojas(self):
         return self.__codigos_lojas
-    
+
     @codigos_lojas.setter
     def codigos_lojas(self, novo_codigos_lojas):
         for novo_codigo_loja in novo_codigos_lojas:
@@ -64,7 +64,7 @@ class Pedido(Connector):
     def validate_codigo(self, codigo):
         if validate_inteiro(codigo):
             return codigo
-        
+
     def validate_lista_codigos(self, codigos):
         for codigo in codigos:
             if validate_inteiro(codigo):

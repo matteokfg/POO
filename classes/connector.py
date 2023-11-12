@@ -14,7 +14,7 @@ class Connector:
         self.__path_bd = nova_path
 
     def criar(self, tipo, **kwargs):
-        if tipo in ['Vendedor', 'Comprador']:
+        if tipo in ['Vendedor', 'Comprador', 'Comentario', 'Endereco', 'Loja', 'Pedido', 'Produto']:
             with open(self.path_bd) as bd_json:
                 data = json.load(bd_json)   #transformo json em dicionario
 
@@ -35,7 +35,7 @@ class Connector:
             return None
 
     def procurar(self, tipo, codigo):
-        if tipo in ['Vendedor', 'Comprador']:
+        if tipo in ['Vendedor', 'Comprador', 'Comentario', 'Endereco', 'Loja', 'Pedido', 'Produto']:
             objeto_existente = False
             with open(self.path_bd) as bd_json:
                 data = json.load(bd_json)   #transformo json em dicionario
@@ -50,7 +50,7 @@ class Connector:
             return None
 
     def atualizar(self, tipo, codigo, **kwargs):
-        if tipo in ['Vendedor', 'Comprador']:
+        if tipo in ['Vendedor', 'Comprador', 'Comentario', 'Endereco', 'Loja', 'Pedido', 'Produto']:
             certo = False
             with open(self.path_bd) as bd_json:
                 data = json.load(bd_json)   #transformo json em dicionario
@@ -72,7 +72,7 @@ class Connector:
             return None
 
     def deletar(self, tipo, codigo):
-        if tipo in ['Vendedor', 'Comprador']:
+        if tipo in ['Vendedor', 'Comprador', 'Comentario', 'Endereco', 'Loja', 'Pedido', 'Produto']:
             certo = False
             with open(self.path_bd) as bd_json:
                 data = json.load(bd_json)   #transformo json em dicionario

@@ -1,10 +1,9 @@
 import os
 import time
-import json
 from tkinter import messagebox
 from datetime import datetime
 
-banco = "..\\banco_de_dados.json"
+path_banco = "banco_de_dados.json"
 
 def validate_inteiro(inteiro):
     try:

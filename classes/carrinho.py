@@ -11,7 +11,7 @@ class Carrinho:
     @property
     def codigo(self):
         return self.__codigo
-    
+
     @codigo.setter
     def codigo(self, novo_codigo):
         if validate_inteiro(novo_codigo):
@@ -20,7 +20,7 @@ class Carrinho:
     @property
     def codigos_produtos(self):
         return self.__codigos_produtos
-    
+
     @codigos_produtos.setter
     def codigos_produtos(self, novo_codigos_produtos):
         for novo_codigo_produto in novo_codigos_produtos:
@@ -31,7 +31,7 @@ class Carrinho:
     @property
     def quantidades(self):
         return self.__quantidades
-    
+
     @quantidades.setter
     def quantidades(self, novo_quantidades):
         for novo_quantidade in novo_quantidades:
@@ -42,7 +42,7 @@ class Carrinho:
     @property
     def codigo_comprador(self):
         return self.__codigo_comprador
-    
+
     @codigo_comprador.setter
     def codigo_comprador(self, novo_codigo_comprador):
         if validate_inteiro(novo_codigo_comprador):
@@ -51,7 +51,7 @@ class Carrinho:
     @property
     def codigos_lojas(self):
         return self.__codigos_lojas
-    
+
     @codigos_lojas.setter
     def codigos_lojas(self, novo_codigos_lojas):
         for novo_codigo_loja in novo_codigos_lojas:
@@ -62,7 +62,7 @@ class Carrinho:
     def validate_codigo(self, codigo):
         if validate_inteiro(codigo):
             return codigo
-        
+
     def validate_lista_codigos(self, codigos):
         for codigo in codigos:
             if validate_inteiro(codigo):

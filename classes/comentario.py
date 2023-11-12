@@ -1,9 +1,9 @@
 from connector import Connector
-from util import validate_inteiro
+from util import validate_inteiro, path_banco
 
 class Comentario(Connector):
     def __init__(self, codigo, codigo_comprador, codigo_produto, codigo_loja, descricao):
-        Connector.__init__("banco_de_dados.json")
+        Connector.__init__(path_banco)
         self.__codigo = self.validate_codigo(codigo)
         self.__codigo_comprador = self.validate_codigo(codigo_comprador)
         self.__codigo_produto = self.validate_codigo(codigo_produto)

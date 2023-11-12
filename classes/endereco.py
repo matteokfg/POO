@@ -1,9 +1,9 @@
 from connector import Connector
-from util import validate_inteiro, validate_cep
+from util import validate_inteiro, validate_cep, path_banco
 
 class Endereco(Connector):
     def __init__(self, logradouro, numero, complemento, cidade, uf, cep):
-        Connector.__init__("banco_de_dados.json")
+        Connector.__init__(path_banco)
         self.__logradouro = logradouro
         self.__numero = self.validate_numero(numero)
         self.__complemento = complemento
@@ -14,7 +14,7 @@ class Endereco(Connector):
     @property
     def logradouro(self):
         return self.__logradouro
-    
+
     @logradouro.setter
     def logradouro(self, novo_logradouro):
         self.__logradouro = novo_logradouro
@@ -22,7 +22,7 @@ class Endereco(Connector):
     @property
     def numero(self):
         return self.__numero
-    
+
     @numero.setter
     def numero(self, novo_numero):
         if validate_inteiro(novo_numero):
@@ -31,7 +31,7 @@ class Endereco(Connector):
     @property
     def complemento(self):
         return self.__complemento
-    
+
     @complemento.setter
     def complemento(self, novo_complemento):
         self.__complemento = novo_complemento
@@ -39,7 +39,7 @@ class Endereco(Connector):
     @property
     def cidade(self):
         return self.__cidade
-    
+
     @cidade.setter
     def cidade(self, nova_cidade):
         self.__cidade = nova_cidade
@@ -47,7 +47,7 @@ class Endereco(Connector):
     @property
     def uf(self):
         return self.__uf
-    
+
     @uf.setter
     def uf(self, novo_uf):
         self.__uf = novo_uf
@@ -55,7 +55,7 @@ class Endereco(Connector):
     @property
     def cep(self):
         return self.__cep
-    
+
     @cep.setter
     def cep(self, novo_cep):
         if validate_cep(novo_cep):
@@ -64,7 +64,7 @@ class Endereco(Connector):
     def validate_numero(self, numero):
         if validate_inteiro(numero):
             return numero
-        
+
     def validate_this_cep(self, cep):
         if validate_cep(cep):
             return cep

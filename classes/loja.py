@@ -7,8 +7,8 @@ from connector import Connector
 
 class Loja(Connector):
     def __init__(self, codigo_loja, cnpj, nome, email):
-        Connector.__init__("banco_de_dados.json")
-        self.__codigo_loja = codigo_loja
+        Connector.__init__(path_banco)
+        self.__codigo_loja = self.validate_codigo(codigo_loja)
         self.__cnpj = self.validate_cnpj(cnpj)
         self.__nome = self.validate_nome(nome)
         self.__email = self.validate_email(email)
@@ -60,3 +60,7 @@ class Loja(Connector):
     def validate_email(self, email):
         if validate_email(email):
             return email
+
+    def validate_codigo(self, codigo):
+        if validate_inteiro(codigo):
+            return codigo
