@@ -7,7 +7,7 @@ from connector import Connector
 class Pessoa(Connector):
     def __init__(self, codigo, nome, senha, data_de_nascimento, email, is_ativo):
         Connector.__init__(self, "banco_de_dados.json")
-        self.__codigo = codigo
+        self.__codigo = self.validate_codigo(codigo)
         self.__nome = nome
         self.__senha = senha
         self.__data_de_nascimento = self.validate_data_de_nascimento(data_de_nascimento)
@@ -79,6 +79,10 @@ class Pessoa(Connector):
     def validate_novo_email(self, novo_email):
         if validate_email(novo_email):
             return novo_email
+
+    def validate_codigo(self, codigo):
+        if validate_inteiro(codigo):
+            return codigo
         
 if __name__ == "__main__":
 

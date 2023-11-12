@@ -1,14 +1,15 @@
 from connector import Connector
+from util import validate_inteiro, validate_cep
 
 class Endereco(Connector):
     def __init__(self, logradouro, numero, complemento, cidade, uf, cep):
         Connector.__init__("banco_de_dados.json")
         self.__logradouro = logradouro
-        self.__numero = numero
+        self.__numero = self.validate_numero(numero)
         self.__complemento = complemento
         self.__cidade = cidade
         self.__uf = uf
-        self.__cep = cep
+        self.__cep = self.validate_this_cep(cep)
 
     @property
     def logradouro(self):
@@ -24,7 +25,8 @@ class Endereco(Connector):
     
     @numero.setter
     def numero(self, novo_numero):
-        self.__numero = novo_numero
+        if validate_inteiro(novo_numero):
+            self.__numero = novo_numero
 
     @property
     def complemento(self):
@@ -56,5 +58,13 @@ class Endereco(Connector):
     
     @cep.setter
     def cep(self, novo_cep):
-        self.__cep = novo_cep
+        if validate_cep(novo_cep):
+            self.__cep = novo_cep
 
+    def validate_numero(self, numero):
+        if validate_inteiro(numero):
+            return numero
+        
+    def validate_this_cep(self, cep):
+        if validate_cep(cep):
+            return cep

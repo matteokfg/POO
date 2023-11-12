@@ -54,3 +54,14 @@ def validate_string(frase):
     else:
         messagebox.showerror('',"Apenas são permitidos valores do tipo String!")
         return False
+    
+def validate_cep(cep):
+    if validate_string(cep):
+        if len(cep) == 8:
+            padrao_cep = re.compile(r'(\d){5}(\d){3}')
+
+            match = padrao_cep.match(cep)
+            if match:
+                return True
+    messagebox.showerror('',"Apenas são permitidos valores do tipo CEP!")
+    return False

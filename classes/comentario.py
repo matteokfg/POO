@@ -10,10 +10,6 @@ class Comentario(Connector):
         self.__codigo_loja = self.validate_codigo(codigo_loja)
         self.__descricao = descricao
 
-    def validate_codigo(self, codigo):
-        if validate_inteiro(codigo):
-            return codigo
-
     @property
     def codigo(self):
         return self.__codigo
@@ -57,6 +53,10 @@ class Comentario(Connector):
     @descricao.setter
     def descricao(self, novo_descricao):
         self.__descricao = novo_descricao
+
+    def validate_codigo(self, codigo):
+        if validate_inteiro(codigo):
+            return codigo
 
     def comentarios_produto(self):
         pass
