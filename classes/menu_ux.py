@@ -18,6 +18,7 @@ import ttkbootstrap as ttk
 import tkinter as tk
 from util_ux import *
 from classes.vendedor import Vendedor
+from classes.comprador import Comprador
 
 class Login:
     
@@ -74,11 +75,25 @@ class Cadastro_Pessoa:
         self.ux()
 
     def inicializa_variaveis(self):
+        # Comprador/vendedor
         self.var_codigo = ttk.IntVar()
         self.var_nome = ttk.StringVar()
         self.var_senha = ttk.StringVar()
         self.var_data_nascimento = ttk.StringVar()
         self.var_email = ttk.StringVar()
+        #Endereço
+        self.var_logradouro = ttk.StringVar()
+        self.var_numero = ttk.IntVar()
+        self.var_complemento = ttk.StringVar()
+        self.var_cidade = ttk.StringVar()
+        self.var_uf = ttk.StringVar()
+        self.var_cep = ttk.StringVar()
+
+
+    def entrar(self):
+        on_closing(self.root, self.master)
+        destruir_elementos(self.master)
+        Pagina_inicial(self.master)
         
     def fun_cadastrar(self):
 
@@ -105,12 +120,30 @@ class Cadastro_Pessoa:
                     return
 
             vendedor.criar("Vendedor", **params_vendedor)
+
+            self.entrar()
+
+        elif self.tipo == "Comprador":
+
+            comprador = Comprador(codigo=0,
+                        nome=self.var_nome.get(),
+                        senha=self.var_senha.get(),
+                        data_de_nascimento=self.var_data_nascimento.get(),
+                        email=self.var_email.get(),
+                        is_ativo=True,
+                        logradouro=self.var_logradouro.get(),
+                        numero=self.var_numero.get(),
+                        complemento=self.var_complemento.get(),
+                        cidade=self.var_cidade.get(),
+                        uf=self.var_uf.get(),
+                        cep=self.var_cep.get(),
+                        )
+
+            
             
             
 
-            on_closing(self.root, self.master)
-            destruir_elementos(self.master)
-            Pagina_inicial(self.master)
+            
 
         
         
@@ -155,32 +188,32 @@ class Cadastro_Pessoa:
         
         frm_usuario = ttk.Frame(frm_informacoes); frm_usuario.pack(pady=10, fill="x")
         ttk.Label(frm_usuario, text="Logradouro").pack(anchor="w")
-        ttk.Entry(frm_usuario).pack(fill="x")
+        ttk.Entry(frm_usuario, textvariable=self.var_logradouro).pack(fill="x")
         self.lbl_verif_usuario = ttk.Label(frm_usuario, text="", bootstyle="danger"); self.lbl_verif_usuario.pack(anchor="w")
         
         frm_usuario = ttk.Frame(frm_informacoes); frm_usuario.pack(pady=10, fill="x")
         ttk.Label(frm_usuario, text="Número").pack(anchor="w")
-        ttk.Entry(frm_usuario).pack(fill="x")
+        ttk.Entry(frm_usuario, textvariable=self.var_numero).pack(fill="x")
         self.lbl_verif_usuario = ttk.Label(frm_usuario, text="", bootstyle="danger"); self.lbl_verif_usuario.pack(anchor="w")
         
         frm_senha = ttk.Frame(frm_informacoes); frm_senha.pack(pady=10, fill="x")
         ttk.Label(frm_senha, text="Complemento").pack(anchor="w")
-        ttk.Entry(frm_senha).pack(fill="x")
+        ttk.Entry(frm_senha, textvariable=self.var_complemento).pack(fill="x")
         self.lbl_verif_usuario = ttk.Label(frm_senha, text="", bootstyle="danger"); self.lbl_verif_usuario.pack(anchor="w")
         
         frm_senha = ttk.Frame(frm_informacoes); frm_senha.pack(pady=10, fill="x")
         ttk.Label(frm_senha, text="Cidade").pack(anchor="w")
-        ttk.DateEntry(frm_senha).pack(fill="x")
+        ttk.Entry(frm_senha, textvariable=self.var_cidade).pack(fill="x")
         self.lbl_verif_usuario = ttk.Label(frm_senha, text="", bootstyle="danger"); self.lbl_verif_usuario.pack(anchor="w")
         
         frm_senha = ttk.Frame(frm_informacoes); frm_senha.pack(pady=10, fill="x")
         ttk.Label(frm_senha, text="UF").pack(anchor="w")
-        ttk.Entry(frm_senha).pack(fill="x")
+        ttk.Entry(frm_senha, textvariable=self.var_uf).pack(fill="x")
         self.lbl_verif_usuario = ttk.Label(frm_senha, text="", bootstyle="danger"); self.lbl_verif_usuario.pack(anchor="w")
         
         frm_senha = ttk.Frame(frm_informacoes); frm_senha.pack(pady=10, fill="x")
         ttk.Label(frm_senha, text="CEP").pack(anchor="w")
-        ttk.Entry(frm_senha).pack(fill="x")
+        ttk.Entry(frm_senha, textvariable=self.var_cep).pack(fill="x")
         self.lbl_verif_usuario = ttk.Label(frm_senha, text="", bootstyle="danger"); self.lbl_verif_usuario.pack(anchor="w")
         
         self.notebook.add(frm_informacoes_gerais, text='Endereço')
