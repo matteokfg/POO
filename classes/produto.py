@@ -1,16 +1,17 @@
 from connector import Connector
+from util import validate_inteiro, validate_float
 
 class Produto(Connector):
     def __init__(self, codigo, nome, descricao, imagem, preco_unitario, tipo, marca, codigo_loja):
         Connector.__init__("banco_de_dados.json")
-        self.__codigo = codigo
+        self.__codigo = self.validate_codigo(codigo)
         self.__nome = nome
         self.__descricao = descricao
         self.__imagem = imagem
-        self.__preco_unitario = preco_unitario
+        self.__preco_unitario = self.validate_preco_unitario(preco_unitario)
         self.__tipo = tipo
         self.__marca = marca
-        self.__codigo_loja = codigo_loja
+        self.__codigo_loja = self.validate_codigo(codigo_loja)
 
     @property
     def codigo(self):
@@ -18,7 +19,8 @@ class Produto(Connector):
     
     @codigo.setter
     def codigo(self, novo_codigo):
-        self.__codigo = novo_codigo
+        if validate_inteiro(novo_codigo):
+            self.__codigo = novo_codigo
 
     @property
     def nome(self):
@@ -50,7 +52,8 @@ class Produto(Connector):
     
     @preco_unitario.setter
     def preco_unitario(self, novo_preco_unitario):
-        self.__preco_unitario = novo_preco_unitario
+        if validate_float(novo_preco_unitario):
+            self.__preco_unitario = novo_preco_unitario
 
     @property
     def tipo(self):
@@ -74,4 +77,13 @@ class Produto(Connector):
     
     @codigo_loja.setter
     def codigo_loja(self, novo_codigo_loja):
-        self.__codigo_loja = novo_codigo_loja
+        if validate_inteiro(novo_codigo_loja):
+            self.__codigo_loja = novo_codigo_loja
+
+    def validate_codigo(self, codigo):
+        if validate_inteiro(codigo):
+            return codigo
+
+    def validate_preco_unitario(self, preco_unitario):
+        if validate_float(preco_unitario):
+            return preco_unitario
