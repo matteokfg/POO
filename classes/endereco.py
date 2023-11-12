@@ -3,7 +3,7 @@ from util import validate_inteiro, validate_cep, path_banco
 
 class Endereco(Connector):
     def __init__(self, logradouro, numero, complemento, cidade, uf, cep):
-        Connector.__init__(path_banco)
+        Connector.__init__(self, path_banco)
         self.__logradouro = logradouro
         self.__numero = self.validate_numero(numero)
         self.__complemento = complemento
