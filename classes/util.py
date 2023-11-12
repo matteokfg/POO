@@ -65,3 +65,10 @@ def validate_cep(cep):
                 return True
     messagebox.showerror('',"Apenas são permitidos valores do tipo CEP!")
     return False
+
+def validate_cpf(cpf):
+    if validate_string(cpf):
+        if re.match(r"[0-9]{11}", cpf):
+            return True
+    messagebox.showerror('',"Apenas são permitidos valores do tipo CEP!")
+    return False
