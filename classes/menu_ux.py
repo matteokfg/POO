@@ -17,6 +17,7 @@ sys.path.append(projeto_path)
 import ttkbootstrap as ttk
 import tkinter as tk
 from util_ux import *
+from ttkbootstrap.tableview import Tableview
 from classes.vendedor import Vendedor
 from classes.comprador import Comprador
 
@@ -88,6 +89,9 @@ class Cadastro_Pessoa:
         self.var_cidade = ttk.StringVar()
         self.var_uf = ttk.StringVar()
         self.var_cep = ttk.StringVar()
+        self.var_cpf = ttk.StringVar()
+        self.var_rg = ttk.StringVar()
+        self.var_cartao = ttk.StringVar()
 
 
     def entrar(self):
@@ -107,7 +111,7 @@ class Cadastro_Pessoa:
                      is_ativo=True,
                      codigo_loja=0)
             
-            params_vendedor = dict(codigo = vendedor.codigo,
+            params_vendedor = dict(
                   nome = vendedor.nome,
                   senha = vendedor.senha,
                   data_de_nascimento = vendedor.data_de_nascimento,
@@ -137,7 +141,34 @@ class Cadastro_Pessoa:
                         cidade=self.var_cidade.get(),
                         uf=self.var_uf.get(),
                         cep=self.var_cep.get(),
-                        )
+                        cpf=self.var_cpf.get(),
+                        rg=self.var_rg.get(),
+                        cartao=self.var_cartao.get())
+            
+            params_comprador = dict(
+                  nome = comprador.nome,
+                  senha = comprador.senha,
+                  data_de_nascimento = comprador.data_de_nascimento,
+                  email = comprador.email,
+                  is_ativo = comprador.is_ativo,
+                  logradouro = comprador.logradouro,
+                  numero = comprador.numero,
+                  complemento = comprador.complemento,
+                  cidade = comprador.cidade,
+                  uf = comprador.uf,
+                  cep = comprador.cep,
+                  cpf = comprador.cpf,
+                  rg = comprador.rg,
+                  cartao = comprador.cartao)
+            
+            for dado in params_comprador:
+                if params_comprador[dado] == None:
+                    return
+                
+            
+            comprador.criar("Comprador", **params_comprador)
+
+            self.entrar()
 
             
             
@@ -156,28 +187,37 @@ class Cadastro_Pessoa:
         frm_usuario = ttk.Frame(frm_informacoes); frm_usuario.pack(pady=10, fill="x")
         ttk.Label(frm_usuario, text="Código").pack(anchor="w")
         ttk.Entry(frm_usuario, textvariable=self.var_codigo).pack(fill="x")
-        self.lbl_verif_usuario = ttk.Label(frm_usuario, text="", bootstyle="danger"); self.lbl_verif_usuario.pack(anchor="w")
         
         frm_usuario = ttk.Frame(frm_informacoes); frm_usuario.pack(pady=10, fill="x")
         ttk.Label(frm_usuario, text="Nome").pack(anchor="w")
         ttk.Entry(frm_usuario, textvariable=self.var_nome).pack(fill="x")
-        self.lbl_verif_usuario = ttk.Label(frm_usuario, text="", bootstyle="danger"); self.lbl_verif_usuario.pack(anchor="w")
         
         frm_senha = ttk.Frame(frm_informacoes); frm_senha.pack(pady=10, fill="x")
         ttk.Label(frm_senha, text="Senha").pack(anchor="w")
         ttk.Entry(frm_senha, textvariable=self.var_senha, show="*").pack(fill="x")
-        self.lbl_verif_usuario = ttk.Label(frm_senha, text="", bootstyle="danger"); self.lbl_verif_usuario.pack(anchor="w")
         
         frm_senha = ttk.Frame(frm_informacoes); frm_senha.pack(pady=10, fill="x")
         ttk.Label(frm_senha, text="Data de nascimento").pack(anchor="w")
         ent_date = ttk.DateEntry(frm_senha); ent_date.pack(fill="x")
         ent_date.entry.configure(textvariable=self.var_data_nascimento)
-        self.lbl_verif_usuario = ttk.Label(frm_senha, text="", bootstyle="danger"); self.lbl_verif_usuario.pack(anchor="w")
         
         frm_senha = ttk.Frame(frm_informacoes); frm_senha.pack(pady=10, fill="x")
         ttk.Label(frm_senha, text="Email").pack(anchor="w")
         ttk.Entry(frm_senha, textvariable=self.var_email).pack(fill="x")
-        self.lbl_verif_usuario = ttk.Label(frm_senha, text="", bootstyle="danger"); self.lbl_verif_usuario.pack(anchor="w")
+
+        if self.tipo == "Comprador":
+
+            frm_cpf_rg = ttk.Frame(frm_informacoes); frm_cpf_rg.pack(pady=10, fill="x")
+            frm_cpf = ttk.Frame(frm_cpf_rg); frm_cpf.pack(side='left', fill="x", expand=True)
+            ttk.Label(frm_cpf, text="CPF").pack(anchor="w")
+            ttk.Entry(frm_cpf, textvariable=self.var_cpf).pack(fill="x", expand=True)
+            frm_rg = ttk.Frame(frm_cpf_rg); frm_rg.pack(side='left', fill="x", expand=True, padx=(10,0))
+            ttk.Label(frm_rg, text="RG").pack(anchor="w")
+            ttk.Entry(frm_rg, textvariable=self.var_rg).pack(fill="x", expand=True)
+
+            frm_cartao = ttk.Frame(frm_informacoes); frm_cartao.pack(pady=10, fill="x")
+            ttk.Label(frm_cartao, text="Cartão").pack(anchor="w")
+            ttk.Entry(frm_cartao, textvariable=self.var_cartao).pack(fill="x")
         
         self.notebook.add(frm_informacoes_gerais, text='Informações gerais')
         
@@ -186,35 +226,29 @@ class Cadastro_Pessoa:
         frm_informacoes_gerais = ttk.Frame(self.notebook); frm_informacoes_gerais.pack(fill="both", expand=True)
         frm_informacoes= ttk.Frame(frm_informacoes_gerais); frm_informacoes.pack(fill="both", expand=True, padx=50)
         
-        frm_usuario = ttk.Frame(frm_informacoes); frm_usuario.pack(pady=10, fill="x")
-        ttk.Label(frm_usuario, text="Logradouro").pack(anchor="w")
-        ttk.Entry(frm_usuario, textvariable=self.var_logradouro).pack(fill="x")
-        self.lbl_verif_usuario = ttk.Label(frm_usuario, text="", bootstyle="danger"); self.lbl_verif_usuario.pack(anchor="w")
+        frm_logradouro = ttk.Frame(frm_informacoes); frm_logradouro.pack(pady=10, fill="x")
+        ttk.Label(frm_logradouro, text="Logradouro").pack(anchor="w")
+        ttk.Entry(frm_logradouro, textvariable=self.var_logradouro).pack(fill="x")
         
-        frm_usuario = ttk.Frame(frm_informacoes); frm_usuario.pack(pady=10, fill="x")
-        ttk.Label(frm_usuario, text="Número").pack(anchor="w")
-        ttk.Entry(frm_usuario, textvariable=self.var_numero).pack(fill="x")
-        self.lbl_verif_usuario = ttk.Label(frm_usuario, text="", bootstyle="danger"); self.lbl_verif_usuario.pack(anchor="w")
+        frm_numero = ttk.Frame(frm_informacoes); frm_numero.pack(pady=10, fill="x")
+        ttk.Label(frm_numero, text="Número").pack(anchor="w")
+        ttk.Entry(frm_numero, textvariable=self.var_numero).pack(fill="x")
         
-        frm_senha = ttk.Frame(frm_informacoes); frm_senha.pack(pady=10, fill="x")
-        ttk.Label(frm_senha, text="Complemento").pack(anchor="w")
-        ttk.Entry(frm_senha, textvariable=self.var_complemento).pack(fill="x")
-        self.lbl_verif_usuario = ttk.Label(frm_senha, text="", bootstyle="danger"); self.lbl_verif_usuario.pack(anchor="w")
+        frm_complemento = ttk.Frame(frm_informacoes); frm_complemento.pack(pady=10, fill="x")
+        ttk.Label(frm_complemento, text="Complemento").pack(anchor="w")
+        ttk.Entry(frm_complemento, textvariable=self.var_complemento).pack(fill="x")
         
-        frm_senha = ttk.Frame(frm_informacoes); frm_senha.pack(pady=10, fill="x")
-        ttk.Label(frm_senha, text="Cidade").pack(anchor="w")
-        ttk.Entry(frm_senha, textvariable=self.var_cidade).pack(fill="x")
-        self.lbl_verif_usuario = ttk.Label(frm_senha, text="", bootstyle="danger"); self.lbl_verif_usuario.pack(anchor="w")
+        frm_cidade = ttk.Frame(frm_informacoes); frm_cidade.pack(pady=10, fill="x")
+        ttk.Label(frm_cidade, text="Cidade").pack(anchor="w")
+        ttk.Entry(frm_cidade, textvariable=self.var_cidade).pack(fill="x")
         
-        frm_senha = ttk.Frame(frm_informacoes); frm_senha.pack(pady=10, fill="x")
-        ttk.Label(frm_senha, text="UF").pack(anchor="w")
-        ttk.Entry(frm_senha, textvariable=self.var_uf).pack(fill="x")
-        self.lbl_verif_usuario = ttk.Label(frm_senha, text="", bootstyle="danger"); self.lbl_verif_usuario.pack(anchor="w")
+        frm_uf = ttk.Frame(frm_informacoes); frm_uf.pack(pady=10, fill="x")
+        ttk.Label(frm_uf, text="UF").pack(anchor="w")
+        ttk.Entry(frm_uf, textvariable=self.var_uf).pack(fill="x")
         
-        frm_senha = ttk.Frame(frm_informacoes); frm_senha.pack(pady=10, fill="x")
-        ttk.Label(frm_senha, text="CEP").pack(anchor="w")
-        ttk.Entry(frm_senha, textvariable=self.var_cep).pack(fill="x")
-        self.lbl_verif_usuario = ttk.Label(frm_senha, text="", bootstyle="danger"); self.lbl_verif_usuario.pack(anchor="w")
+        frm_cep = ttk.Frame(frm_informacoes); frm_cep.pack(pady=10, fill="x")
+        ttk.Label(frm_cep, text="CEP").pack(anchor="w")
+        ttk.Entry(frm_cep, textvariable=self.var_cep).pack(fill="x")
         
         self.notebook.add(frm_informacoes_gerais, text='Endereço')
         
@@ -241,12 +275,60 @@ class Cadastro_Pessoa:
             
 class Pagina_inicial:
     
-    def __init__(self, root):
+    def __init__(self, root, tipo):
         
         self.root = root
         self.root.grab_set()
         self.root.state("zoomed")
-        ttk.Frame(self.root,bootstyle="danger").pack(fill="both", expand=True)
+        self.tipo = tipo
+        self.ux()
+
+    def tabela_comprador(self):
+
+        frm_tabela = ttk.Frame(self.frm_principal); frm_tabela.pack(fill="x")
+
+        coldata = [
+            {"text": "LicenseNumber", "stretch": False},
+            "CompanyName",
+            {"text": "UserCount", "stretch": False},
+        ]
+
+        rowdata = [
+            ('A123', 'IzzyCo', 12),
+            ('A136', 'Kimdee Inc.', 45),
+            ('A158', 'Farmadding Co.', 36)
+        ]
+
+        dt = Tableview(
+            master=frm_tabela,
+            coldata=coldata,
+            rowdata=rowdata,
+            paginated=True,
+            searchable=False,
+            bootstyle="primary"
+        )
+        dt.pack(fill="both", expand=True, padx=10, pady=10)
+
+
+    def barra_superior_comprador(self):
+        frm_barra = ttk.Frame(self.frm_principal); frm_barra.pack(expand=True, anchor="n", pady=20)
+        ttk.Label(frm_barra, text="Pesquisar por: ", font=(None, 16)).pack(side="left", padx=10)
+        cbb_pesquisar = ttk.Combobox(frm_barra); cbb_pesquisar.pack(side="left", padx=10)
+        ent_pesquisar = ttk.Entry(frm_barra, width=50); ent_pesquisar.pack(side="left", padx=10)
+        ttk.Label(frm_barra, text="Filtros: ", font=(None, 16)).pack(side="left", padx=10)
+        cbb_filtros = ttk.Combobox(frm_barra); cbb_filtros.pack(side="left", padx=10)
+        mb=ttk.Menubutton(frm_barra,text='Meu perfil', bootstyle="dark-outline");  mb.pack(side="left")
+        mb.menu=ttk.Menu(mb)
+        mb['menu']=mb.menu
+        mb.menu.add_command(label='Meus dados')
+        mb.menu.add_command(label='Carrinho')
+        mb.menu.add_command(label='Sair', command=self.root.destroy)
+        
+    def ux(self):
+        self.frm_principal = ttk.Frame(self.root); self.frm_principal.pack(fill="both", expand=True)
+        if self.tipo == "Comprador":
+            self.barra_superior_comprador()
+            self.tabela_comprador()
         
         
         
@@ -258,7 +340,8 @@ class Pagina_inicial:
 if __name__ == "__main__":
     
     root = ttk.Window()
-    Login(root)
+    #Login(root)
+    Pagina_inicial(root, "Comprador")
     root.mainloop()
         
     
