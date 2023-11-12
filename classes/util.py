@@ -7,12 +7,20 @@ from datetime import datetime
 banco = "..\\banco_de_dados.json"
 
 def validate_inteiro(inteiro):
-        try:
-            int(inteiro)
-            return True
-        except ValueError:
-            messagebox.showerror('',"Apenas são permitidos valores inteiros")
-            return False
+    try:
+        int(inteiro)
+        return True
+    except ValueError:
+        messagebox.showerror('',"Apenas são permitidos valores inteiros")
+        return False
+
+def validate_float(decimal):
+    try:
+        float(decimal)
+        return True
+    except ValueError:
+        messagebox.showerror('',"Apenas são permitidos valores decimais")
+        return False
 
 
 def validate_data(date_text):

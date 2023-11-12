@@ -20,7 +20,8 @@ class Comentario(Connector):
 
     @codigo.setter
     def codigo(self, novo_codigo):
-        self.__codigo = novo_codigo
+        if validate_inteiro(novo_codigo):
+            self.__codigo = novo_codigo
 
     @property
     def codigo_comprador(self):
@@ -28,7 +29,8 @@ class Comentario(Connector):
 
     @codigo_comprador.setter
     def codigo_comprador(self, novo_codigo_comprador):
-        self.__codigo_comprador = novo_codigo_comprador
+        if validate_inteiro(novo_codigo_comprador):
+            self.__codigo_comprador = novo_codigo_comprador
 
     @property
     def codigo_produto(self):
@@ -36,7 +38,8 @@ class Comentario(Connector):
 
     @codigo_produto.setter
     def codigo_produto(self, novo_codigo_produto):
-        self.__codigo_produto = novo_codigo_produto
+        if validate_inteiro(novo_codigo_produto):
+            self.__codigo_produto = novo_codigo_produto
 
     @property
     def codigo_loja(self):
@@ -44,7 +47,8 @@ class Comentario(Connector):
 
     @codigo_loja.setter
     def codigo_loja(self, novo_codigo_loja):
-        self.__codigo_loja = novo_codigo_loja
+        if validate_inteiro(novo_codigo_loja):
+            self.__codigo_loja = novo_codigo_loja
 
     @property
     def descricao(self):
