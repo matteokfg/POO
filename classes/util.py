@@ -1,6 +1,7 @@
 import os
 import time
 import json
+from tkinter import messagebox
 from datetime import datetime
 
 banco = "..\\banco_de_dados.json"
@@ -10,7 +11,7 @@ def validate_inteiro(inteiro):
             int(inteiro)
             return True
         except ValueError:
-            print("Apenas são permitidos valores inteiros")
+            messagebox.showerror('',"Apenas são permitidos valores inteiros")
             return False
 
 
@@ -20,14 +21,14 @@ def validate_data(date_text):
         datetime.strptime(date_text, date_format)
         return True
     except ValueError:
-        print("Data não válida")
+        messagebox.showerror('',"Data não válida")
         return False
     
 def validate_bool(booleano):
     if booleano == False or booleano == True:
         return True
     else:
-        print("Status não válido")
+        messagebox.showerror('',"Status não válido")
         return False
 
 import re
@@ -36,12 +37,12 @@ def validate_email(novo_email):
     if(re.fullmatch(regex, novo_email)):
         return True
     else:
-        print("Email Inválido!")
+        messagebox.showerror('',"Email Inválido!")
         return False
     
 def validate_string(frase):
     if type(frase) == type("_"):
         return True
     else:
-        print("Apenas são permitidos valores do tipo String!")
+        messagebox.showerror('',"Apenas são permitidos valores do tipo String!")
         return False

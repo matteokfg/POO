@@ -92,8 +92,7 @@ class Cadastro_Pessoa:
                      is_ativo=True,
                      codigo_loja=0)
             
-            vendedor.criar("Vendedor",
-                  codigo = vendedor.codigo,
+            params_vendedor = dict(codigo = vendedor.codigo,
                   nome = vendedor.nome,
                   senha = vendedor.senha,
                   data_de_nascimento = vendedor.data_de_nascimento,
@@ -101,11 +100,17 @@ class Cadastro_Pessoa:
                   is_ativo = vendedor.is_ativo,
                   codigo_loja = vendedor.codigo_loja)
             
+            for dado in params_vendedor:
+                if params_vendedor[dado] == None:
+                    return
+
+            vendedor.criar("Vendedor", **params_vendedor)
+            
             
 
-        on_closing(self.root, self.master)
-        destruir_elementos(self.master)
-        Pagina_inicial(self.master)
+            on_closing(self.root, self.master)
+            destruir_elementos(self.master)
+            Pagina_inicial(self.master)
 
         
         
