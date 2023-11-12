@@ -1,13 +1,18 @@
 from connector import Connector
+from util import validate_inteiro
 
 class Comentario(Connector):
     def __init__(self, codigo, codigo_comprador, codigo_produto, codigo_loja, descricao):
         Connector.__init__("banco_de_dados.json")
-        self.__codigo = codigo
-        self.__codigo_comprador = codigo_comprador
-        self.__codigo_produto = codigo_produto
-        self.__codigo_loja = codigo_loja
+        self.__codigo = self.validate_codigo(codigo)
+        self.__codigo_comprador = self.validate_codigo(codigo_comprador)
+        self.__codigo_produto = self.validate_codigo(codigo_produto)
+        self.__codigo_loja = self.validate_codigo(codigo_loja)
         self.__descricao = descricao
+
+    def validate_codigo(self, codigo):
+        if validate_inteiro(codigo):
+            return codigo
 
     @property
     def codigo(self):
