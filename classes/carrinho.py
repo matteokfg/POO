@@ -1,4 +1,5 @@
 from util import validate_inteiro, validate_float
+from connector import Connector
 
 class Carrinho:
     def __init__(self, codigo, codigos_produtos, quantidades, codigo_comprador, codigos_lojas):
@@ -74,7 +75,24 @@ class Carrinho:
                 continue
 
     def preco_total(self):
-        pass
+        total = 0
+        lista_precos_unicos = []
+        for codigo_produto in self.__codigos_produtos:
+            c = Connector('banco_de_dados.json')
+            produto = c.procurar("Produto", codigo_produto)
+            if not None:
+                lista_precos_unicos.append(produto['preco_unitario'])
+        try:
+            for preco, quantidade in zip(lista_precos_unicos, self.__quantidades):
+                total += (preco * quantidade)
+        except:
+            print("Algum produto nao foi encontrado!")
+        return total
 
-    def adicionar_ao_carrinho(self):
-        pass
+    def adicionar_ao_carrinho(self, codigo_produto, quantidade, codigo_loja):
+        if validate_inteiro(codigo_produto) and validate_inteiro(quantidade) and validate_inteiro(codigo_loja):
+            self.__codigos_produtos.append(codigo_produto)
+            self.__quantidades.append(quantidade)
+            self.__codigos_lojas.append(codigo_loja)
+        else:
+            return None
