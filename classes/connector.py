@@ -38,20 +38,23 @@ class Connector:
         else:
             return None
 
-    def procurar(self, tipo, codigo):
+    def procurar(self, tipo, coluna, valor):
         if tipo in self.__lista_tabelas:
             objeto_existente = False
             with open(self.path_bd) as bd_json:
                 data = json.load(bd_json)   #transformo json em dicionario
             tabela = data["BD"][tipo] #escolho a tabela
             for objeto in tabela:
-                if objeto["Codigo"] == codigo:
+                if objeto[coluna] == valor:
                     objeto_existente = objeto
             if not objeto_existente:
                 print("Objeto nao encontrado!")
             return objeto_existente
         else:
             return None
+        
+    def procurar_codigo(self, tipo, codigo):
+        self.procurar(tipo, "Codigo", codigo)
 
     def atualizar(self, tipo, codigo, **kwargs):
         if tipo in self.__lista_tabelas:

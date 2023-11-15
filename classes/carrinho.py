@@ -80,7 +80,7 @@ class Carrinho:
         for codigo_produto in self.__codigos_produtos:
             c = Connector('banco_de_dados.json')
             produto = c.procurar("Produto", codigo_produto)
-            if not None:
+            if produto is not None:
                 lista_precos_unicos.append(produto['preco_unitario'])
         try:
             for preco, quantidade in zip(lista_precos_unicos, self.__quantidades):

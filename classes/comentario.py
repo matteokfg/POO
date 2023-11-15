@@ -59,10 +59,16 @@ class Comentario(Connector):
             return codigo
 
     def comentarios_produto(self):
-        pass
+        comentarios = self.listar("Comentario")
+        comentarios_produtos = [comentario for comentario in comentarios if comentario["codigo_produto"] == self.__codigo_produto]
+        return comentarios_produtos
 
     def comentarios_loja(self):
-        pass
+        comentarios = self.listar("Comentario")
+        comentarios_produtos = [comentario for comentario in comentarios if comentario["codigo_loja"] == self.__codigo_loja]
+        return comentarios_produtos
 
     def comentarios_comprador(self):
-        pass
+        comentarios = self.listar("Comentario")
+        comentarios_produtos = [comentario for comentario in comentarios if comentario["codigo_comprador"] == self.__codigo_comprador]
+        return comentarios_produtos
