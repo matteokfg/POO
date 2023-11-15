@@ -3,6 +3,7 @@ import json
 class Connector:
     def __init__(self, path_bd) -> None:
         self.__path_bd = path_bd
+        self.__lista_tabelas = ["Vendedor", "Comprador", "Comentario", "Endereco", "Loja", "Pedido", "Produto"]
 
     @property
     def path_bd(self):
@@ -12,8 +13,12 @@ class Connector:
     def path_bd(self, nova_path):
         self.__path_bd = nova_path
 
+    @property
+    def lista_tabelas(self):
+        return self.__lista_tabelas
+
     def criar(self, tipo, **kwargs):
-        if tipo in ['Vendedor', 'Comprador', 'Comentario', 'Endereco', 'Loja', 'Pedido', 'Produto']:
+        if tipo in self.__lista_tabelas:
             with open(self.path_bd) as bd_json:
                 data = json.load(bd_json)   #transformo json em dicionario
 
@@ -34,7 +39,7 @@ class Connector:
             return None
 
     def procurar(self, tipo, codigo):
-        if tipo in ['Vendedor', 'Comprador', 'Comentario', 'Endereco', 'Loja', 'Pedido', 'Produto']:
+        if tipo in self.__lista_tabelas:
             objeto_existente = False
             with open(self.path_bd) as bd_json:
                 data = json.load(bd_json)   #transformo json em dicionario
@@ -49,7 +54,7 @@ class Connector:
             return None
 
     def atualizar(self, tipo, codigo, **kwargs):
-        if tipo in ['Vendedor', 'Comprador', 'Comentario', 'Endereco', 'Loja', 'Pedido', 'Produto']:
+        if tipo in self.__lista_tabelas:
             atualizado = False
             with open(self.path_bd) as bd_json:
                 data = json.load(bd_json)   #transformo json em dicionario
@@ -71,7 +76,7 @@ class Connector:
             return None
 
     def deletar(self, tipo, codigo):
-        if tipo in ['Vendedor', 'Comprador', 'Comentario', 'Endereco', 'Loja', 'Pedido', 'Produto']:
+        if tipo in self.__lista_tabelas:
             deletado = False
             with open(self.path_bd) as bd_json:
                 data = json.load(bd_json)   #transformo json em dicionario
@@ -92,7 +97,7 @@ class Connector:
             return None
 
     def listar(self, tipo):
-        if tipo in ['Vendedor', 'Comprador', 'Comentario', 'Endereco', 'Loja', 'Pedido', 'Produto']:
+        if tipo in self.__lista_tabelas:
             with open(self.path_bd) as bd_json:
                 data = json.load(bd_json)
             tabela = data["BD"][tipo]
