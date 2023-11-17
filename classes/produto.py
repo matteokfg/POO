@@ -2,8 +2,8 @@ from connector import Connector
 from util import validate_inteiro, validate_float, path_banco
 
 class Produto(Connector):
-    def __init__(self, codigo, nome, descricao, imagem, preco_unitario, tipo, marca, codigo_loja):
-        Connector.__init__(path_banco)
+    def __init__(self, codigo, nome, descricao, imagem, preco_unitario, tipo, marca, quantidade, codigo_loja):
+        Connector.__init__(self, path_banco)
         self.__codigo = self.validate_codigo(codigo)
         self.__nome = nome
         self.__descricao = descricao
@@ -11,6 +11,7 @@ class Produto(Connector):
         self.__preco_unitario = self.validate_preco_unitario(preco_unitario)
         self.__tipo = tipo
         self.__marca = marca
+        self.__quantidade = self.validate_quantidade(quantidade)
         self.__codigo_loja = self.validate_codigo(codigo_loja)
 
     @property
@@ -72,6 +73,15 @@ class Produto(Connector):
         self.__marca = novo_marca
 
     @property
+    def quantidade(self):
+        return self.__quantidade
+
+    @quantidade.setter
+    def quantidade(self, nova_quantidade):
+        if validate_inteiro(nova_quantidade):
+            self.__quantidade = nova_quantidade
+
+    @property
     def codigo_loja(self):
         return self.__codigo_loja
 
@@ -83,6 +93,10 @@ class Produto(Connector):
     def validate_codigo(self, codigo):
         if validate_inteiro(codigo):
             return codigo
+        
+    def validate_quantidade(self, quantidade):
+        if validate_inteiro(quantidade):
+            return quantidade
 
     def validate_preco_unitario(self, preco_unitario):
         if validate_float(preco_unitario):

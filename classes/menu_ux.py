@@ -20,6 +20,9 @@ from util_ux import *
 from ttkbootstrap.tableview import Tableview
 from classes.vendedor import Vendedor
 from classes.comprador import Comprador
+from classes.produto import Produto
+
+
 
 class Login:
     
@@ -283,31 +286,94 @@ class Pagina_inicial:
         self.tipo = tipo
         self.ux()
 
+    def dados_produto(self):
+
+        frm_dados_produto = ttk.Frame(self.frm_principal); frm_dados_produto.pack(anchor="n", fill="both", padx=150, pady=20)
+        lblfrm_dados_produto = ttk.LabelFrame(frm_dados_produto, text="Dados do Produto"); lblfrm_dados_produto.pack(fill="both", expand=True)
+
+        frm_imagem = ttk.LabelFrame(lblfrm_dados_produto, text="Imagem"); frm_imagem.pack(side='left', fill="y", padx=20, pady=20)
+        ttk.Frame(frm_imagem, width=275, height=275, bootstyle='primary').pack()
+
+
+        frm_campos = ttk.Frame(lblfrm_dados_produto); frm_campos.pack(fill="x", expand=True)
+        frm_codigo_produto = ttk.Frame(frm_campos); frm_codigo_produto.pack(fill="x", expand=True, side='left')
+        ttk.Label(frm_codigo_produto, text="Código", font=(None,12)).pack(anchor="w")
+        tk.Entry(frm_codigo_produto, font=(None,12)).pack(fill="x", expand=True)
+        frm_codigo_produto = ttk.Frame(frm_campos); frm_codigo_produto.pack(fill="x", expand=True, side='left', padx=20)
+        ttk.Label(frm_codigo_produto, text="Nome", font=(None,12)).pack(anchor="w")
+        tk.Entry(frm_codigo_produto, font=(None,12)).pack(fill="x", expand=True)
+        frm_codigo_produto = ttk.Frame(frm_campos); frm_codigo_produto.pack(fill="x", expand=True, side='left')
+        ttk.Label(frm_codigo_produto, text="Descrição", font=(None,12)).pack(anchor="w")
+        tk.Entry(frm_codigo_produto, font=(None,12)).pack(fill="x", expand=True)
+        
+        frm_campos = ttk.Frame(lblfrm_dados_produto); frm_campos.pack(fill="x", expand=True)
+        frm_codigo_produto = ttk.Frame(frm_campos); frm_codigo_produto.pack(fill="x", expand=True, side='left')
+        ttk.Label(frm_codigo_produto, text="Tipo", font=(None,12)).pack(anchor="w")
+        tk.Entry(frm_codigo_produto, font=(None,12)).pack(fill="x", expand=True)
+        frm_codigo_produto = ttk.Frame(frm_campos); frm_codigo_produto.pack(fill="x", expand=True, side='left', padx=20)
+        ttk.Label(frm_codigo_produto, text="Marca", font=(None,12)).pack(anchor="w")
+        tk.Entry(frm_codigo_produto, font=(None,12)).pack(fill="x", expand=True)
+        frm_codigo_produto = ttk.Frame(frm_campos); frm_codigo_produto.pack(fill="x", expand=True, side='left')
+        ttk.Label(frm_codigo_produto, text="Loja", font=(None,12)).pack(anchor="w")
+        tk.Entry(frm_codigo_produto, font=(None,12)).pack(fill="x", expand=True)
+
+        frm_campos = ttk.Frame(lblfrm_dados_produto); frm_campos.pack(fill="x", expand=True)
+        frm_codigo_produto = ttk.Frame(frm_campos); frm_codigo_produto.pack(fill="x", expand=True, side='left')
+        ttk.Label(frm_codigo_produto, text="Quantidade disponível", font=(None,12,'bold')).pack(anchor="w")
+        tk.Entry(frm_codigo_produto, font=(None,18)).pack(fill="x", expand=True)
+        frm_codigo_produto = ttk.Frame(frm_campos); frm_codigo_produto.pack(fill="x", expand=True, side='left', padx=20)
+        ttk.Label(frm_codigo_produto, text="Preço (R$)", font=(None,12,'bold')).pack(anchor="w")
+        tk.Entry(frm_codigo_produto, font=(None,18)).pack(fill="x", expand=True)
+        frm_codigo_produto = ttk.Frame(frm_campos); frm_codigo_produto.pack(fill="x", expand=True, side='left', padx=20)
+        ttk.Label(frm_codigo_produto).pack(anchor="w")
+        tk.Button(frm_codigo_produto, text="Adicionar ao carrinho", autostyle=False, font=(None,14), background='white', foreground='black', cursor='hand2').pack(fill="x", expand=True)
+
+
+
     def tabela_comprador(self):
 
-        frm_tabela = ttk.Frame(self.frm_principal); frm_tabela.pack(fill="x")
+        frm_tabela = ttk.Frame(self.frm_principal); frm_tabela.pack(anchor="n", fill="both", padx=150)
+
+        produto = Produto(codigo=0,
+                          nome="Nome",
+                          descricao="Descricao",
+                          imagem="a",
+                          preco_unitario=2.0,
+                          tipo="tipo",
+                          marca="marca",
+                          quantidade=0,
+                          codigo_loja=2)
 
         coldata = [
-            {"text": "LicenseNumber", "stretch": False},
-            "CompanyName",
-            {"text": "UserCount", "stretch": False},
+            "Código",
+            "Nome",
+            "Descrição",
+            "Tipo",
+            "Marca",
+            "Loja",
+            "Quantidade",
+            "Preço unitário"
         ]
 
         rowdata = [
-            ('A123', 'IzzyCo', 12),
-            ('A136', 'Kimdee Inc.', 45),
-            ('A158', 'Farmadding Co.', 36)
         ]
 
         dt = Tableview(
             master=frm_tabela,
             coldata=coldata,
             rowdata=rowdata,
-            paginated=True,
+            paginated=False,
             searchable=False,
-            bootstyle="primary"
+            bootstyle="primary",
+            height=20
         )
-        dt.pack(fill="both", expand=True, padx=10, pady=10)
+        dt.pack(side='left', fill='x', expand=True, anchor="w")
+
+        verscrlbar = ttk.Scrollbar(frm_tabela, 
+                           orient ="vertical", 
+                           command = dt.view.yview)
+        verscrlbar.pack(side='right', fill='y')
+        dt.view.configure(yscrollcommand = verscrlbar.set)
 
 
     def barra_superior_comprador(self):
@@ -325,10 +391,11 @@ class Pagina_inicial:
         mb.menu.add_command(label='Sair', command=self.root.destroy)
         
     def ux(self):
-        self.frm_principal = ttk.Frame(self.root); self.frm_principal.pack(fill="both", expand=True)
+        self.frm_principal = ttk.Frame(self.root); self.frm_principal.pack(fill="both", anchor='n')
         if self.tipo == "Comprador":
             self.barra_superior_comprador()
             self.tabela_comprador()
+            self.dados_produto()
         
         
         
@@ -340,6 +407,7 @@ class Pagina_inicial:
 if __name__ == "__main__":
     
     root = ttk.Window()
+
     #Login(root)
     Pagina_inicial(root, "Comprador")
     root.mainloop()
