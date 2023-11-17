@@ -38,7 +38,7 @@ class Connector:
         else:
             return None
 
-    def procurar(self, tipo, coluna, valor):
+    def procurar(self, tipo, valor, coluna="Codigo"):
         if tipo in self.__lista_tabelas:
             objeto_existente = False
             with open(self.path_bd) as bd_json:
@@ -52,9 +52,6 @@ class Connector:
             return objeto_existente
         else:
             return None
-        
-    def procurar_codigo(self, tipo, codigo):
-        self.procurar(tipo, "Codigo", codigo)
 
     def atualizar(self, tipo, codigo, **kwargs):
         if tipo in self.__lista_tabelas:
