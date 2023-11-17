@@ -2,14 +2,14 @@ from connector import Connector
 from util import validate_inteiro, validate_float, path_banco
 
 class Produto(Connector):
-    def __init__(self, codigo, nome, descricao, imagem, preco_unitario, tipo, marca, quantidade, codigo_loja):
+    def __init__(self, codigo, nome, descricao, imagem, preco_unitario, tipo_produto, marca, quantidade, codigo_loja):
         Connector.__init__(self, path_banco)
         self.__codigo = self.validate_codigo(codigo)
         self.__nome = nome
         self.__descricao = descricao
         self.__imagem = imagem
         self.__preco_unitario = self.validate_preco_unitario(preco_unitario)
-        self.__tipo = tipo
+        self.__tipo_produto = tipo_produto
         self.__marca = marca
         self.__quantidade = self.validate_quantidade(quantidade)
         self.__codigo_loja = self.validate_codigo(codigo_loja)
@@ -57,12 +57,12 @@ class Produto(Connector):
             self.__preco_unitario = novo_preco_unitario
 
     @property
-    def tipo(self):
-        return self.__tipo
+    def tipo_produto(self):
+        return self.__tipo_produto
 
-    @tipo.setter
+    @tipo_produto.setter
     def tipo(self, novo_tipo):
-        self.__tipo = novo_tipo
+        self.__tipo_produto = novo_tipo
 
     @property
     def marca(self):
@@ -101,3 +101,31 @@ class Produto(Connector):
     def validate_preco_unitario(self, preco_unitario):
         if validate_float(preco_unitario):
             return preco_unitario
+        
+if __name__ == "__main__":
+
+    produto = Produto(codigo=0,
+                      nome="nome_produto3",
+                      descricao="descricao_produto3",
+                      imagem="imagem_produto3",
+                      preco_unitario=8,
+                      tipo_produto="tipo_produto3",
+                      marca="marca_produto3",
+                      quantidade=1,
+                      codigo_loja=2)
+    
+    params_produto = dict(
+                          nome=produto.nome,
+                          descricao=produto.descricao,
+                          imagem=produto.imagem,
+                          preco_unitario=produto.preco_unitario,
+                          tipo_produto=produto.tipo_produto,
+                          marca=produto.marca,
+                          quantidade=produto.quantidade,
+                          codigo_loja=produto.codigo_loja)
+    
+    for dado in params_produto:
+        if params_produto[dado] == None:
+            exit()
+
+    produto.criar("Produto", **params_produto)
