@@ -76,4 +76,4 @@ class Pedido(Connector):
                 continue
 
     def listar(self):
-        self.listar_tabela("Pedido")
+        return self.listar_tabela("Pedido")

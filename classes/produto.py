@@ -103,7 +103,7 @@ class Produto(Connector):
             return preco_unitario
 
     def listar(self):
-        self.listar_tabela("Produto")
+        return self.listar_tabela("Produto")
 
 if __name__ == "__main__":
 

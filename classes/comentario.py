@@ -74,4 +74,4 @@ class Comentario(Connector):
         return comentarios_produtos
 
     def listar(self):
-        self.listar_tabela("Comentario")
+        return self.listar_tabela("Comentario")

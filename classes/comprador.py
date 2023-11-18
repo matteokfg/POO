@@ -46,4 +46,4 @@ class Comprador(Pessoa, Endereco):
             return rg
 
     def listar(self):
-        self.listar_tabela("Comprador")
+        return self.listar_tabela("Comprador")

@@ -63,4 +63,4 @@ class Loja(Connector):
             return codigo
 
     def listar(self):
-        self.listar_tabela("Loja")
+        return self.listar_tabela("Loja")

@@ -20,4 +20,4 @@ class Vendedor(Pessoa):
             return codigo_loja
 
     def listar(self):
-        self.listar_tabela("Vendedor")
+        return self.listar_tabela("Vendedor")

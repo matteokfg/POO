@@ -79,4 +79,4 @@ class Endereco(Connector):
             return cep
 
     def listar(self):
-        self.listar_tabela("Endereco")
+        return self.listar_tabela("Endereco")
