@@ -1,8 +1,5 @@
-import sys
-sys.path.insert(1, 'POO/util')
-from util import *
+from util import validate_inteiro, validate_string, validate_email, path_banco
 from connector import Connector
-
 
 
 class Loja(Connector):
