@@ -1,4 +1,4 @@
-from util import validate_inteiro, validate_float
+from util import validate_inteiro, validate_float, path_banco
 from connector import Connector
 
 class Carrinho:
@@ -77,8 +77,8 @@ class Carrinho:
     def preco_total(self):
         total = 0
         lista_precos_unicos = []
+        c = Connector(path_banco)
         for codigo_produto in self.__codigos_produtos:
-            c = Connector('banco_de_dados.json')
             produto = c.procurar("Produto", codigo_produto)
             if produto is not None:
                 lista_precos_unicos.append(produto['preco_unitario'])
