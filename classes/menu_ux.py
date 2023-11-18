@@ -394,7 +394,7 @@ class Pagina_inicial:
             "Descrição",
             "Tipo",
             "Marca",
-            "Loja",
+            "Código loja",
             "Quantidade",
             "Preço unitário"
         ]
