@@ -16,6 +16,7 @@ sys.path.append(projeto_path)
 
 import ttkbootstrap as ttk
 import tkinter as tk
+from tkinter import messagebox
 from util_ux import *
 from ttkbootstrap.tableview import Tableview
 from ttkbootstrap.dialogs import Querybox
@@ -23,6 +24,8 @@ from ttkbootstrap.localization import msgcat
 from classes.vendedor import Vendedor
 from classes.comprador import Comprador
 from classes.produto import Produto
+from classes.connector import Connector
+from util import path_banco
 
 
 
@@ -33,11 +36,22 @@ class Login:
         
         self.root = root
         self.root.minsize(500,500)
+        self.inicializa_variaveis()
         self.ux()
+
+    def inicializa_variaveis(self):
+
+        self.var_nome = ttk.StringVar()
+        self.var_senha = ttk.StringVar()
         
     def fun_entrar(self):
-        destruir_elementos(self.root)
-        Pagina_inicial(self.root, "Comprador")
+        for pessoa in Connector(path_banco).listar("Comprador"):
+            if self.var_nome.get() == pessoa["nome"] and self.var_senha.get() == pessoa["senha"]:
+                destruir_elementos(self.root)
+                Pagina_inicial(self.root, "Comprador")
+                return
+        messagebox.showerror('','Nome ou senha inválidos!')
+        
         
         
     def ux(self):
@@ -48,12 +62,12 @@ class Login:
         
         frm_usuario = ttk.Frame(frm_principal); frm_usuario.pack(pady=10, fill="x")
         ttk.Label(frm_usuario, text="Usuário").pack(anchor="w")
-        ttk.Entry(frm_usuario).pack(fill="x")
+        ttk.Entry(frm_usuario, textvariable=self.var_nome).pack(fill="x")
         self.lbl_verif_usuario = ttk.Label(frm_usuario, text="", bootstyle="danger"); self.lbl_verif_usuario.pack(anchor="w")
         
         frm_senha = ttk.Frame(frm_principal); frm_senha.pack(pady=10, fill="x")
         ttk.Label(frm_senha, text="Senha").pack(anchor="w")
-        ttk.Entry(frm_senha).pack(fill="x")
+        ttk.Entry(frm_senha, textvariable=self.var_senha, show="*").pack(fill="x")
         self.lbl_verif_usuario = ttk.Label(frm_senha, text="", bootstyle="danger"); self.lbl_verif_usuario.pack(anchor="w")
         
         frm_botoes = ttk.Frame(frm_principal); frm_botoes.pack(pady=10, fill="x")
@@ -100,10 +114,10 @@ class Cadastro_Pessoa:
         self.var_cartao = ttk.StringVar()
 
 
-    def entrar(self):
+    def fun_entrar(self):
         on_closing(self.root, self.master)
         destruir_elementos(self.master)
-        Pagina_inicial(self.master)
+        Pagina_inicial(self.master, "Comprador")
         
     def fun_cadastrar(self):
 
@@ -174,7 +188,7 @@ class Cadastro_Pessoa:
             
             comprador.criar("Comprador", **params_comprador)
 
-            self.entrar()
+            self.fun_entrar()
 
             
             
