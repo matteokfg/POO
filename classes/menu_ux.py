@@ -45,7 +45,7 @@ class Login:
         self.var_senha = ttk.StringVar()
         
     def fun_entrar(self):
-        for pessoa in Connector(path_banco).listar("Comprador"):
+        for pessoa in Connector(path_banco).listar_tabela("Comprador"):
             if self.var_nome.get() == pessoa["nome"] and self.var_senha.get() == pessoa["senha"]:
                 destruir_elementos(self.root)
                 Pagina_inicial(self.root, "Comprador")
@@ -401,7 +401,7 @@ class Pagina_inicial:
 
         rowdata = []
 
-        for prod in produto.listar("Produto"):
+        for prod in produto.listar():
             rowdata.append((prod["Codigo"],prod["nome"],prod["descricao"],prod["tipo_produto"],prod["marca"],prod["codigo_loja"],prod["quantidade"],prod["preco_unitario"]))
 
 
