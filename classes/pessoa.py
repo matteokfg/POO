@@ -1,6 +1,4 @@
-import sys
-#sys.path.insert(1, 'POO/util')
-from util import *
+from util import validate_email, validate_inteiro, validate_data, validate_bool, path_banco
 from connector import Connector
 
 
