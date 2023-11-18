@@ -19,9 +19,11 @@ import tkinter as tk
 from util_ux import *
 from ttkbootstrap.tableview import Tableview
 from ttkbootstrap.dialogs import Querybox
+from ttkbootstrap.localization import msgcat
 from classes.vendedor import Vendedor
 from classes.comprador import Comprador
 from classes.produto import Produto
+
 
 
 
@@ -35,7 +37,7 @@ class Login:
         
     def fun_entrar(self):
         destruir_elementos(self.root)
-        Pagina_inicial(self.root)
+        Pagina_inicial(self.root, "Comprador")
         
         
     def ux(self):
@@ -311,8 +313,8 @@ class Pagina_inicial:
 
     def fun_adicionar_ao_carrinho(self):
         quantidade = Querybox.get_float(prompt="Informe a quantidade", title="Adicionar ao carrinho", initialvalue=1, minvalue=1, maxvalue=int(self.var_quantidade.get()))
-        print(quantidade)
-        pass
+        if quantidade != None:
+            print("Adicionado ao carrinho!")
 
     def ux_dados_produto(self):
 
@@ -439,9 +441,9 @@ class Pagina_inicial:
 if __name__ == "__main__":
     
     root = ttk.Window()
-    root.tk.eval('::msgcat::mclocale pt')
-    #Login(root)
-    Pagina_inicial(root, "Comprador")
+    msgcat.MessageCatalog.locale("pt_br")
+    Login(root)
+    #Pagina_inicial(root, "Comprador")
     root.mainloop()
         
     
