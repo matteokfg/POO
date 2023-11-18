@@ -72,3 +72,6 @@ class Comentario(Connector):
         comentarios = self.listar("Comentario")
         comentarios_produtos = [comentario for comentario in comentarios if comentario["codigo_comprador"] == self.__codigo_comprador]
         return comentarios_produtos
+
+    def listar(self):
+        self.listar_tabela("Comentario")

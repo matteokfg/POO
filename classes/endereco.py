@@ -77,3 +77,6 @@ class Endereco(Connector):
     def validate_this_cep(self, cep):
         if validate_cep(cep):
             return cep
+
+    def listar(self):
+        self.listar_tabela("Endereco")

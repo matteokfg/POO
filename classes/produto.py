@@ -101,7 +101,10 @@ class Produto(Connector):
     def validate_preco_unitario(self, preco_unitario):
         if validate_float(preco_unitario):
             return preco_unitario
-        
+
+    def listar(self):
+        self.listar_tabela("Produto")
+
 if __name__ == "__main__":
 
     produto = Produto(codigo=0,

@@ -74,3 +74,6 @@ class Pedido(Connector):
         for quantidade in quantidades:
             if validate_float(quantidade):
                 continue
+
+    def listar(self):
+        self.listar_tabela("Pedido")

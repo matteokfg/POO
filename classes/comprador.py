@@ -44,3 +44,6 @@ class Comprador(Pessoa, Endereco):
     def validate_rg(self, rg):
         if validate_string(rg):
             return rg
+
+    def listar(self):
+        self.listar_tabela("Comprador")

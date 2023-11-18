@@ -61,3 +61,6 @@ class Loja(Connector):
     def validate_codigo(self, codigo):
         if validate_inteiro(codigo):
             return codigo
+
+    def listar(self):
+        self.listar_tabela("Loja")

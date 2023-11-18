@@ -96,7 +96,7 @@ class Connector:
         else:
             return None
 
-    def listar(self, tipo):
+    def listar_tabela(self, tipo):
         if tipo in self.__lista_tabelas:
             with open(self.path_bd) as bd_json:
                 data = json.load(bd_json)

@@ -18,3 +18,6 @@ class Vendedor(Pessoa):
     def validate_codigo_loja(self, codigo_loja):
         if validate_inteiro(codigo_loja):
             return codigo_loja
+
+    def listar(self):
+        self.listar_tabela("Vendedor")
