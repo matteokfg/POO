@@ -10,7 +10,6 @@ class Pagina_inicial:
         self.root.state("zoomed")
         self.tipo = tipo
         self.perfil = perfil
-        print(perfil)
         self.inicializa_variaveis()
         self.ux()
 

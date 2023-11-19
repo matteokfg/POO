@@ -18,9 +18,49 @@ class Cadastro_Pessoa:
             self.perfil = kwargs["perfil"]
             self.carregar()
 
+    def alterar_dados(self):
+        
+        if self.tipo == "Comprador":
+
+            self.var_codigo.set(self.perfil.codigo)
+            self.var_nome.set(self.perfil.nome)
+            self.var_senha.set(self.perfil.senha)
+            self.var_data_nascimento.set(self.perfil.data_de_nascimento)
+            self.var_email.set(self.perfil.email)
+            #Endereço
+            self.var_logradouro.set(self.perfil.logradouro)
+            self.var_numero.set(self.perfil.numero)
+            self.var_complemento.set(self.perfil.complemento)
+            self.var_cidade.set(self.perfil.cidade)
+            self.var_uf.set(self.perfil.uf)
+            self.var_cep.set(self.perfil.cep)
+            self.var_cpf.set(self.perfil.cpf)
+            self.var_rg.set(self.perfil.rg)
+            self.var_cartao.set(self.perfil.cartao)
+
+            params_comprador = dict(
+                                    codigo = self.perfil.codigo,
+                                    nome = self.perfil.nome,
+                                    senha = self.perfil.senha,
+                                    data_de_nascimento = self.perfil.data_de_nascimento,
+                                    email = self.perfil.email,
+                                    logradouro = self.perfil.logradouro,
+                                    numero = self.perfil.numero,
+                                    complemento = self.perfil.complemento,
+                                    cidade = self.perfil.cidade,
+                                    uf = self.perfil.uf,
+                                    cep = self.perfil.cep,
+                                    cpf = self.perfil.cpf,
+                                    rg = self.perfil.rg,
+                                    cartao = self.perfil.cartao)
+
+            if self.perfil.atualizar(self.tipo, **params_comprador) != None:
+                self.perfil = Comprador(self.perfil.codigo, **params_comprador)
+
     def carregar(self):
 
         self.btn_success["text"] = "Salvar e sair"
+        self.btn_success["command"] = self.alterar_dados
 
         if self.tipo == "Comprador":
 

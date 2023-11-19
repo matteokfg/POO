@@ -1,4 +1,5 @@
 import json
+from tkinter import messagebox
 
 class Connector:
     def __init__(self, path_bd) -> None:
@@ -68,9 +69,10 @@ class Connector:
                     objeto[lugar][key] = value
                 atualizado = True
             else:
-                print("Objeto nao encontrado!")
+                messagebox.showerror('',"Objeto nao encontrado!")
             with open(self.path_bd, 'w') as bd_json:
                 json.dump(data, bd_json)    #salvo as alteracoes no bd.json
+            messagebox.showinfo('','Dados atualizados com sucesso!')
             return atualizado
         else:
             return None
