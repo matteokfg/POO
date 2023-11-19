@@ -66,7 +66,7 @@ class Connector:
                     lugar = index
             if lugar != -1:
                 for key, value in enumerate(kwargs.items()):
-                    objeto[lugar][key] = value
+                    tabela[lugar][key] = value
                 atualizado = True
             else:
                 messagebox.showerror('',"Objeto nao encontrado!")
