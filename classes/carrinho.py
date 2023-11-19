@@ -1,5 +1,6 @@
 from util import validate_inteiro, validate_float, path_banco
 from connector import Connector
+from tkinter import messagebox
 
 class Carrinho:
     def __init__(self, codigo, codigos_produtos, quantidades, codigo_comprador, codigos_lojas):
@@ -65,14 +66,28 @@ class Carrinho:
             return codigo
 
     def validate_lista_codigos(self, codigos):
+        validado = []
         for codigo in codigos:
             if validate_inteiro(codigo):
-                continue
+                validado.append(True)
+            else:
+                validado.append(False)
+        if False in validado:
+            messagebox.showerror('',"Codigo invalido!")
+        else:
+            return codigos
 
     def validate_lista_quantidades(self, quantidades):
+        validado = []
         for quantidade in quantidades:
-            if validate_float(quantidade):
-                continue
+            if validate_inteiro(quantidade):
+                validado.append(True)
+            else:
+                validado.append(False)
+        if False in validado:
+            messagebox.showerror('',"Quantidade invalida!")
+        else:
+            return quantidades
 
     def preco_total(self):
         total = 0
