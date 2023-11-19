@@ -5,7 +5,7 @@ Created on Fri Nov 10 19:36:29 2023
 @author: raulg
 """
 from util_ux import *
-from classes.login_ux import Login
+from login_ux import Login
         
         
 if __name__ == "__main__":

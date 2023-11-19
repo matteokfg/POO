@@ -16,29 +16,46 @@ class Login:
         self.var_senha = ttk.StringVar()
         
     def fun_entrar(self):
-        for pessoa in Connector(path_banco).listar_tabela("Comprador"):
-            if self.var_nome.get() == pessoa["nome"] and self.var_senha.get() == pessoa["senha"]:
 
-                perfil = Comprador(codigo=pessoa["codigo"],
-                            nome=pessoa["nome"],
-                            senha=pessoa["senha"],
-                            data_de_nascimento=pessoa["data_de_nascimento"],
-                            email=pessoa["email"],
-                            is_ativo=pessoa["is_ativo"],
-                            logradouro=pessoa["logradouro"],
-                            numero=pessoa["numero"],
-                            complemento=pessoa["complemento"],
-                            cidade=pessoa["cidade"],
-                            uf=pessoa["uf"],
-                            cep=pessoa["cep"],
-                            cpf=pessoa["cpf"],
-                            rg=pessoa["rg"],
-                            cartao=pessoa["cartao"])
+        tipos = ["Comprador", "Vendedor"]
+
+        for tipo in tipos:
+
+            for pessoa in Connector(path_banco).listar_tabela(tipo):
+                if self.var_nome.get() == pessoa["nome"] and self.var_senha.get() == pessoa["senha"]:
+
+                    if tipo == "Comprador":
+
+                        perfil = Comprador(codigo=pessoa["codigo"],
+                                    nome=pessoa["nome"],
+                                    senha=pessoa["senha"],
+                                    data_de_nascimento=pessoa["data_de_nascimento"],
+                                    email=pessoa["email"],
+                                    is_ativo=pessoa["is_ativo"],
+                                    logradouro=pessoa["logradouro"],
+                                    numero=pessoa["numero"],
+                                    complemento=pessoa["complemento"],
+                                    cidade=pessoa["cidade"],
+                                    uf=pessoa["uf"],
+                                    cep=pessoa["cep"],
+                                    cpf=pessoa["cpf"],
+                                    rg=pessoa["rg"],
+                                    cartao=pessoa["cartao"])
+                        
+                    elif tipo == "Vendedor":
+
+                        perfil = Vendedor(codigo=pessoa["codigo"],
+                                        nome=pessoa["nome"],
+                                        senha=pessoa["senha"],
+                                        data_de_nascimento=pessoa["data_de_nascimento"],
+                                        email=pessoa["email"],
+                                        is_ativo=pessoa["is_ativo"],
+                                        codigo_loja=pessoa["codigo_loja"])
+                    
+                    destruir_elementos(self.root)
+                    Pagina_inicial(self.root, tipo, perfil)
+                    return
                 
-                destruir_elementos(self.root)
-                Pagina_inicial(self.root, "Comprador")
-                return
-            
         messagebox.showerror('','Nome ou senha inválidos!')
         
         

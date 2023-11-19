@@ -24,12 +24,12 @@ class Connector:
 
             tabela_banco = data["BD"][tipo] #escolho a tabela
             try:
-                codigo_ultimo = tabela_banco[-1]["Codigo"]  #pego o codigo da ultima conta
+                codigo_ultimo = tabela_banco[-1]["codigo"]  #pego o codigo da ultima conta
             except IndexError:
                 codigo_ultimo = 0
 
             kwargs_to_args = list(kwargs.items())
-            kwargs_to_args.insert(0, ("Codigo", codigo_ultimo + 1)) # adiciono o Codigo ao dicionario
+            kwargs_to_args.insert(0, ("codigo", codigo_ultimo + 1)) # adiciono o Codigo ao dicionario
             kwargs = dict(kwargs_to_args)
             tabela_banco.append(kwargs)    #salvo a conta no ultimo lugar da tabela
             with open(self.path_bd, 'w') as bd_json:
@@ -38,7 +38,7 @@ class Connector:
         else:
             return None
 
-    def procurar(self, tipo, valor, coluna="Codigo"):
+    def procurar(self, tipo, valor, coluna="codigo"):
         if tipo in self.__lista_tabelas:
             objeto_existente = False
             with open(self.path_bd) as bd_json:
@@ -61,7 +61,7 @@ class Connector:
             tabela = data["BD"][tipo] #escolho a tabela
             lugar = -1
             for index, objeto in enumerate(tabela):
-                if objeto["Codigo"] == codigo:
+                if objeto["codigo"] == codigo:
                     lugar = index
             if lugar != -1:
                 for key, value in enumerate(kwargs.items()):
@@ -83,7 +83,7 @@ class Connector:
             tabela = data["BD"][tipo] #escolho a tabela
             lugar = -1
             for index, objeto in enumerate(tabela):
-                if objeto["Codigo"] == codigo:
+                if objeto["codigo"] == codigo:
                     lugar = index
             if lugar != -1:
                 tabela.pop(lugar)

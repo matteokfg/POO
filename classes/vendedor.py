@@ -2,8 +2,8 @@ from pessoa import Pessoa
 from util import validate_inteiro
 
 class Vendedor(Pessoa):
-    def __init__(self, codigo, nome, senha, data_nascimento, email, is_ativo, codigo_loja):
-        Pessoa.__init__(self, codigo, nome, senha, data_nascimento, email, is_ativo)
+    def __init__(self, codigo, nome, senha, data_de_nascimento, email, is_ativo, codigo_loja):
+        Pessoa.__init__(self, codigo, nome, senha, data_de_nascimento, email, is_ativo)
         self.__codigo_loja = self.validate_codigo_loja(codigo_loja)
 
     @property

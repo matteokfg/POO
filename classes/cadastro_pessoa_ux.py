@@ -4,7 +4,7 @@ from classes.principal_ux import Pagina_inicial
 
 class Cadastro_Pessoa:
     
-    def __init__(self, root, master, tipo):
+    def __init__(self, root, master, tipo, **kwargs):
         
         self.root = root
         self.master = master
@@ -13,6 +13,33 @@ class Cadastro_Pessoa:
         self.tipo = tipo
         self.inicializa_variaveis()
         self.ux()
+
+        if "perfil" in kwargs:
+            self.perfil = kwargs["perfil"]
+            self.carregar()
+
+    def carregar(self):
+
+        self.btn_success["text"] = "Salvar e sair"
+
+        if self.tipo == "Comprador":
+
+            # Comprador/vendedor
+            self.var_codigo.set(self.perfil.codigo)
+            self.var_nome.set(self.perfil.nome)
+            self.var_senha.set(self.perfil.senha)
+            self.var_data_nascimento.set(self.perfil.data_de_nascimento)
+            self.var_email.set(self.perfil.email)
+            #Endereço
+            self.var_logradouro.set(self.perfil.logradouro)
+            self.var_numero.set(self.perfil.numero)
+            self.var_complemento.set(self.perfil.complemento)
+            self.var_cidade.set(self.perfil.cidade)
+            self.var_uf.set(self.perfil.uf)
+            self.var_cep.set(self.perfil.cep)
+            self.var_cpf.set(self.perfil.cpf)
+            self.var_rg.set(self.perfil.rg)
+            self.var_cartao.set(self.perfil.cartao)
 
     def inicializa_variaveis(self):
         # Comprador/vendedor
@@ -33,10 +60,10 @@ class Cadastro_Pessoa:
         self.var_cartao = ttk.StringVar()
 
 
-    def fun_entrar(self):
+    def fun_entrar(self, perfil):
         on_closing(self.root, self.master)
         destruir_elementos(self.master)
-        Pagina_inicial(self.master, "Comprador")
+        Pagina_inicial(self.master, self.tipo, perfil)
         
     def fun_cadastrar(self):
 
@@ -45,7 +72,7 @@ class Cadastro_Pessoa:
             vendedor = Vendedor(codigo=0,
                      nome=self.var_nome.get(),
                      senha=self.var_senha.get(),
-                     data_nascimento=self.var_data_nascimento.get(),
+                     data_de_nascimento=self.var_data_nascimento.get(),
                      email=self.var_email.get(),
                      is_ativo=True,
                      codigo_loja=0)
@@ -62,9 +89,9 @@ class Cadastro_Pessoa:
                 if params_vendedor[dado] == None:
                     return
 
-            vendedor.criar("Vendedor", **params_vendedor)
+            vendedor.criar(self.tipo, **params_vendedor)
 
-            self.entrar()
+            self.fun_entrar(vendedor)
 
         elif self.tipo == "Comprador":
 
@@ -105,9 +132,9 @@ class Cadastro_Pessoa:
                     return
                 
             
-            comprador.criar("Comprador", **params_comprador)
+            comprador.criar(self.tipo, **params_comprador)
 
-            self.fun_entrar()
+            self.fun_entrar(comprador)
 
             
             
@@ -125,7 +152,7 @@ class Cadastro_Pessoa:
         
         frm_usuario = ttk.Frame(frm_informacoes); frm_usuario.pack(pady=10, fill="x")
         ttk.Label(frm_usuario, text="Código").pack(anchor="w")
-        ttk.Entry(frm_usuario, textvariable=self.var_codigo).pack(fill="x")
+        ttk.Entry(frm_usuario, textvariable=self.var_codigo, state="readonly").pack(fill="x")
         
         frm_usuario = ttk.Frame(frm_informacoes); frm_usuario.pack(pady=10, fill="x")
         ttk.Label(frm_usuario, text="Nome").pack(anchor="w")
@@ -206,7 +233,7 @@ class Cadastro_Pessoa:
             self.ux_endereco()
             
         frm_botoes = ttk.Frame(frm_principal); frm_botoes.pack(pady=10, fill="x")
-        ttk.Button(frm_botoes, text="Cadastrar", bootstyle="success-outline", command=self.fun_cadastrar).pack(pady=10, fill="x")
+        self.btn_success = ttk.Button(frm_botoes, text="Cadastrar", bootstyle="success-outline", command=self.fun_cadastrar); self.btn_success.pack(pady=10, fill="x")
         ttk.Button(frm_botoes, text="Sair", bootstyle="secondary-outline", command=self.root.destroy).pack(pady=10, fill="x")
             
         

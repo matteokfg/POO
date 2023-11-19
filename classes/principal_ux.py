@@ -1,13 +1,16 @@
 from util_ux import *
 
+
 class Pagina_inicial:
     
-    def __init__(self, root, tipo):
+    def __init__(self, root, tipo, perfil):
         
         self.root = root
         self.root.grab_set()
         self.root.state("zoomed")
         self.tipo = tipo
+        self.perfil = perfil
+        print(perfil)
         self.inicializa_variaveis()
         self.ux()
 
@@ -128,7 +131,7 @@ class Pagina_inicial:
         rowdata = []
 
         for prod in produto.listar():
-            rowdata.append((prod["Codigo"],prod["nome"],prod["descricao"],prod["tipo_produto"],prod["marca"],prod["codigo_loja"],prod["quantidade"],prod["preco_unitario"]))
+            rowdata.append((prod["codigo"],prod["nome"],prod["descricao"],prod["tipo_produto"],prod["marca"],prod["codigo_loja"],prod["quantidade"],prod["preco_unitario"]))
 
 
         self.dt = Tableview(
@@ -160,7 +163,8 @@ class Pagina_inicial:
         mb=ttk.Menubutton(frm_barra,text='Meu perfil', bootstyle="dark-outline");  mb.pack(side="left")
         mb.menu=ttk.Menu(mb)
         mb['menu']=mb.menu
-        mb.menu.add_command(label='Meus dados')
+        from classes.cadastro_pessoa_ux import Cadastro_Pessoa
+        mb.menu.add_command(label='Meus dados', command=lambda: Cadastro_Pessoa(ttk.Toplevel(), self.root, self.tipo, perfil=self.perfil))
         mb.menu.add_command(label='Carrinho')
         mb.menu.add_command(label='Sair', command=self.root.destroy)
         

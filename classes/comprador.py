@@ -6,7 +6,7 @@ class Comprador(Pessoa, Endereco):
     def __init__(self, codigo, nome, senha, data_de_nascimento, email, is_ativo,
                  logradouro, numero, complemento, cidade, uf, cep, cpf, rg, cartao):
         Pessoa.__init__(self, codigo, nome, senha, data_de_nascimento, email, is_ativo)
-        Endereco.__init__(self, logradouro, numero, complemento, cidade, uf, cep)
+        Endereco.__init__(self, codigo, logradouro, numero, complemento, cidade, uf, cep)
         self.__cpf = self.validate_this_cpf(cpf)
         self.__rg = self.validate_rg(rg)
         self.__cartao = cartao
