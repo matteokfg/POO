@@ -39,13 +39,25 @@ class Pagina_inicial:
         if quantidade != None:
 
             print("Adicionado ao carrinho!")
-            return
 
             carrinho = Carrinho(codigo=0,
-                                codigos_produtos=[0],
-                                quantidades=[0],
-                                codigo_comprador="0",
-                                codigos_lojas=[0])
+                                codigos_produtos=[],
+                                quantidades=[],
+                                codigo_comprador=self.perfil.codigo,
+                                codigos_lojas=[])
+            
+            print(carrinho.codigo,
+                  '\n',
+                  carrinho.codigos_produtos,
+                  '\n',
+                  carrinho.quantidades,
+                  '\n',
+                  carrinho.codigo_comprador,
+                  '\n',
+                  carrinho.codigos_lojas
+                  )
+
+
             carrinho.adicionar_ao_carrinho(int(self.var_codigo_produto.get()),
                                            quantidade,
                                            int(self.var_loja.get()))
