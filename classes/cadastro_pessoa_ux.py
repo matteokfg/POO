@@ -55,7 +55,7 @@ class Cadastro_Pessoa:
                                     cartao = self.perfil.cartao)
 
             if self.perfil.atualizar(self.tipo, **params_comprador) != None:
-                self.perfil = Comprador(self.perfil.codigo, **params_comprador)
+                self.perfil = Comprador(**params_comprador)
 
     def carregar(self):
 
