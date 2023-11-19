@@ -22,37 +22,22 @@ class Cadastro_Pessoa:
         
         if self.tipo == "Comprador":
 
-            self.var_codigo.set(self.perfil.codigo)
-            self.var_nome.set(self.perfil.nome)
-            self.var_senha.set(self.perfil.senha)
-            self.var_data_nascimento.set(self.perfil.data_de_nascimento)
-            self.var_email.set(self.perfil.email)
-            #Endereço
-            self.var_logradouro.set(self.perfil.logradouro)
-            self.var_numero.set(self.perfil.numero)
-            self.var_complemento.set(self.perfil.complemento)
-            self.var_cidade.set(self.perfil.cidade)
-            self.var_uf.set(self.perfil.uf)
-            self.var_cep.set(self.perfil.cep)
-            self.var_cpf.set(self.perfil.cpf)
-            self.var_rg.set(self.perfil.rg)
-            self.var_cartao.set(self.perfil.cartao)
-
             params_comprador = dict(
-                                    codigo = self.perfil.codigo,
-                                    nome = self.perfil.nome,
-                                    senha = self.perfil.senha,
-                                    data_de_nascimento = self.perfil.data_de_nascimento,
-                                    email = self.perfil.email,
-                                    logradouro = self.perfil.logradouro,
-                                    numero = self.perfil.numero,
-                                    complemento = self.perfil.complemento,
-                                    cidade = self.perfil.cidade,
-                                    uf = self.perfil.uf,
-                                    cep = self.perfil.cep,
-                                    cpf = self.perfil.cpf,
-                                    rg = self.perfil.rg,
-                                    cartao = self.perfil.cartao)
+                                    codigo = self.var_codigo.get(),
+                                    nome = self.var_nome.get(),
+                                    senha = self.var_senha.get(),
+                                    data_de_nascimento = self.var_data_nascimento.get(),
+                                    email = self.var_email.get(),
+                                    is_ativo = True,
+                                    logradouro = self.var_logradouro.get(),
+                                    numero = self.var_numero.get(),
+                                    complemento = self.var_complemento.get(),
+                                    cidade = self.var_cidade.get(),
+                                    uf = self.var_uf.get(),
+                                    cep = self.var_cep.get(),
+                                    cpf = self.var_cpf.get(),
+                                    rg = self.var_rg.get(),
+                                    cartao = self.var_cartao.get())
 
             if self.perfil.atualizar(self.tipo, **params_comprador) != None:
                 self.perfil = Comprador(**params_comprador)
