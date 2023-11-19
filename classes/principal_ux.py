@@ -35,10 +35,8 @@ class Pagina_inicial:
             self.var_preco.set(lin.values[7])
 
     def fun_adicionar_ao_carrinho(self):
-        quantidade = Querybox.get_float(prompt="Informe a quantidade", title="Adicionar ao carrinho", initialvalue=1, minvalue=1, maxvalue=int(self.var_quantidade.get()))
+        quantidade = Querybox.get_integer(prompt="Informe a quantidade", title="Adicionar ao carrinho", initialvalue=1, minvalue=1, maxvalue=int(self.var_quantidade.get()))
         if quantidade != None:
-
-            print("Adicionado ao carrinho!")
 
             carrinho = Carrinho(codigo=0,
                                 codigos_produtos=[],
