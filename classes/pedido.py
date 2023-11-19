@@ -8,10 +8,10 @@ class Pedido(Connector, Compra):
     def __init__(self, codigo, codigos_produtos, quantidades, codigo_comprador, codigos_lojas):
         Connector.__init__(path_banco)
         self.__codigo = self.validate_codigo(codigo)
-        self.__codigos_produtos = self.validate_lista_codigos(codigos_produtos)
-        self.__quantidades = self.validate_lista_quantidades(quantidades)
+        self.__codigos_produtos = self.validate_lista_inteiros(codigos_produtos)
+        self.__quantidades = self.validate_lista_inteiros(quantidades)
         self.__codigo_comprador = self.validate_codigo(codigo_comprador)
-        self.__codigos_lojas = self.validate_lista_codigos(codigos_lojas)
+        self.__codigos_lojas = self.validate_lista_inteiros(codigos_lojas)
 
     @property
     def codigo(self):
