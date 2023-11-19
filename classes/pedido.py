@@ -1,5 +1,5 @@
 from connector import Connector
-from util import validate_inteiro, validate_float, path_banco
+from util import validate_inteiro, validate_float, validate_lista_inteiros, path_banco
 
 class Pedido(Connector):
     def __init__(self, codigo, codigos_produtos, quantidades, codigo_comprador, codigos_lojas):
@@ -66,14 +66,10 @@ class Pedido(Connector):
             return codigo
 
     def validate_lista_codigos(self, codigos):
-        for codigo in codigos:
-            if validate_inteiro(codigo):
-                continue
+        validate_lista_inteiros(codigos)
 
     def validate_lista_quantidades(self, quantidades):
-        for quantidade in quantidades:
-            if validate_float(quantidade):
-                continue
+        validate_lista_inteiros(quantidades)
 
     def listar(self):
         return self.listar_tabela("Pedido")
