@@ -40,7 +40,13 @@ class Cadastro_Pessoa:
                                     cartao = self.var_cartao.get())
 
             if self.perfil.atualizar(self.tipo, **params_comprador) != None:
-                self.perfil = Comprador(**params_comprador)
+                messagebox.showinfo('','Clique em OK para fazer Login novamente')
+                from classes.login_ux import Login
+                self.root.destroy()
+                destruir_elementos(self.master)
+                self.master.state('normal')
+                Login(self.master)
+
 
     def carregar(self):
 
