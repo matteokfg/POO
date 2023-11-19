@@ -65,7 +65,7 @@ class Connector:
                 if objeto["codigo"] == codigo:
                     lugar = index
             if lugar != -1:
-                for key, value in enumerate(kwargs.items()):
+                for key, value in kwargs.items():
                     tabela[lugar][key] = value
                 atualizado = True
             else:
