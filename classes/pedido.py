@@ -1,7 +1,10 @@
+from util import validate_inteiro, validate_float, path_banco
 from connector import Connector
-from util import validate_inteiro, validate_float, validate_lista_inteiros, path_banco
+from compra import Compra
+from tkinter import messagebox
 
-class Pedido(Connector):
+
+class Pedido(Connector, Compra):
     def __init__(self, codigo, codigos_produtos, quantidades, codigo_comprador, codigos_lojas):
         Connector.__init__(path_banco)
         self.__codigo = self.validate_codigo(codigo)
@@ -65,11 +68,17 @@ class Pedido(Connector):
         if validate_inteiro(codigo):
             return codigo
 
-    def validate_lista_codigos(self, codigos):
-        validate_lista_inteiros(codigos)
-
-    def validate_lista_quantidades(self, quantidades):
-        validate_lista_inteiros(quantidades)
+    def validate_lista_inteiros(self, inteiros):
+        validado = []
+        for inteiro in inteiros:
+            if validate_inteiro(inteiro):
+                validado.append(True)
+            else:
+                validado.append(False)
+        if False in validado:
+            messagebox.showerror('',"Inteiro invalido!")
+        else:
+            return inteiros
 
     def listar(self):
         return self.listar_tabela("Pedido")

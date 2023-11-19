@@ -71,15 +71,3 @@ def validate_cpf(cpf):
             return True
     messagebox.showerror('',"Apenas são permitidos valores do tipo CEP!")
     return False
-
-def validate_lista_inteiros(inteiros):
-        validado = []
-        for inteiro in inteiros:
-            if validate_inteiro(inteiro):
-                validado.append(True)
-            else:
-                validado.append(False)
-        if False in validado:
-            messagebox.showerror('',"Inteiro invalido!")
-        else:
-            return inteiros

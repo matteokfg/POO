@@ -1,14 +1,16 @@
-from util import validate_inteiro, validate_float, validate_lista_inteiros, path_banco
+from util import validate_inteiro, validate_float, path_banco
 from connector import Connector
+from compra import Compra
 from tkinter import messagebox
 
-class Carrinho:
+
+class Carrinho(Compra):
     def __init__(self, codigo, codigos_produtos, quantidades, codigo_comprador, codigos_lojas):
         self.__codigo = self.validate_codigo(codigo)
-        self.__codigos_produtos = self.validate_lista_codigos(codigos_produtos)
-        self.__quantidades = self.validate_lista_quantidades(quantidades)
+        self.__codigos_produtos = self.validate_lista_inteiros(codigos_produtos)
+        self.__quantidades = self.validate_lista_inteiros(quantidades)
         self.__codigo_comprador = self.validate_codigo(codigo_comprador)
-        self.__codigos_lojas = self.validate_lista_codigos(codigos_lojas)
+        self.__codigos_lojas = self.validate_lista_inteiros(codigos_lojas)
 
     @property
     def codigo(self):
@@ -64,12 +66,18 @@ class Carrinho:
     def validate_codigo(self, codigo):
         if validate_inteiro(codigo):
             return codigo
-
-    def validate_lista_codigos(self, codigos):
-        validate_lista_inteiros(codigos)
-
-    def validate_lista_quantidades(self, quantidades):
-        validate_lista_inteiros(quantidades)
+        
+    def validate_lista_inteiros(self, inteiros):
+        validado = []
+        for inteiro in inteiros:
+            if validate_inteiro(inteiro):
+                validado.append(True)
+            else:
+                validado.append(False)
+        if False in validado:
+            messagebox.showerror('',"Inteiro invalido!")
+        else:
+            return inteiros
 
     def preco_total(self):
         total = 0
