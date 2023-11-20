@@ -10,6 +10,17 @@ class Pagina_inicial:
         self.root.state("zoomed")
         self.tipo = tipo
         self.perfil = perfil
+        self.filtros = {"Código": "codigo",
+                        "Nome": "nome",
+                        "Descrição": "descricao",
+                        "Tipo": "tipo",
+                        "Marca": "marca",
+                        "Loja": "loja"}
+        self.carrinho = Carrinho(codigo=0,
+                                codigos_produtos=[],
+                                quantidades=[],
+                                codigo_comprador=self.perfil.codigo,
+                                codigos_lojas=[])
         self.inicializa_variaveis()
         self.ux()
 
@@ -21,6 +32,7 @@ class Pagina_inicial:
         self.var_marca = ttk.StringVar()
         self.var_loja = ttk.StringVar()
         self.var_quantidade = ttk.StringVar()
+        self.var_cod_loja = ttk.StringVar()
         self.var_preco = ttk.DoubleVar()
 
     def bind_atualiza_campos(self):
@@ -30,41 +42,28 @@ class Pagina_inicial:
             self.var_descricao.set(lin.values[2])
             self.var_tipo.set(lin.values[3])
             self.var_marca.set(lin.values[4])
-            self.var_loja.set(lin.values[5])
-            self.var_quantidade.set(lin.values[6])
-            self.var_preco.set(lin.values[7])
+            self.var_cod_loja.set(lin.values[5])
+            self.var_loja.set(lin.values[6])
+            self.var_quantidade.set(lin.values[7])
+            self.var_preco.set(lin.values[8])
+
+    def fun_pesquisar(self):
+
+        pass
 
     def fun_adicionar_ao_carrinho(self):
         quantidade = Querybox.get_integer(prompt="Informe a quantidade", title="Adicionar ao carrinho", initialvalue=1, minvalue=1, maxvalue=int(self.var_quantidade.get()))
         if quantidade != None:
 
-            carrinho = Carrinho(codigo=0,
-                                codigos_produtos=[],
-                                quantidades=[],
-                                codigo_comprador=self.perfil.codigo,
-                                codigos_lojas=[])
-            
-            print(carrinho.codigo,
-                  '\n',
-                  carrinho.codigos_produtos,
-                  '\n',
-                  carrinho.quantidades,
-                  '\n',
-                  carrinho.codigo_comprador,
-                  '\n',
-                  carrinho.codigos_lojas
-                  )
-
-
-            carrinho.adicionar_ao_carrinho(int(self.var_codigo_produto.get()),
+            self.carrinho.adicionar_ao_carrinho(int(self.var_codigo_produto.get()),
                                            quantidade,
-                                           int(self.var_loja.get()))
+                                           int(self.var_cod_loja.get()))
             
-            params_carrinho = dict(codigo = carrinho.codigo,
-                                   codigos_produto = carrinho.codigos_produtos,
-                                   quantidades=carrinho.quantidades,
-                                   codigo_comprador=carrinho.codigo_comprador,
-                                   codigos_loja=carrinho.codigos_lojas)
+            params_carrinho = dict(codigo = self.carrinho.codigo,
+                                   codigos_produto = self.carrinho.codigos_produtos,
+                                   quantidades=self.carrinho.quantidades,
+                                   codigo_comprador=self.carrinho.codigo_comprador,
+                                   codigos_loja=self.carrinho.codigos_lojas)
             
             print(params_carrinho)
 
@@ -97,7 +96,8 @@ class Pagina_inicial:
         tk.Entry(frm_codigo_produto, font=(None,12), textvariable=self.var_marca).pack(fill="x", expand=True)
         frm_codigo_produto = ttk.Frame(frm_campos); frm_codigo_produto.pack(fill="x", expand=True, side='left')
         ttk.Label(frm_codigo_produto, text="Loja", font=(None,12)).pack(anchor="w")
-        tk.Entry(frm_codigo_produto, font=(None,12), textvariable=self.var_loja).pack(fill="x", expand=True)
+        tk.Entry(frm_codigo_produto, font=(None,12), textvariable=self.var_cod_loja, width=8).pack(side='left', padx=(0,10))
+        tk.Entry(frm_codigo_produto, font=(None,12), textvariable=self.var_loja).pack(side="left",fill="x", expand=True)
 
         frm_campos = ttk.Frame(lblfrm_dados_produto); frm_campos.pack(fill="x", expand=True)
         frm_codigo_produto = ttk.Frame(frm_campos); frm_codigo_produto.pack(fill="x", expand=True, side='left')
@@ -132,7 +132,8 @@ class Pagina_inicial:
             "Descrição",
             "Tipo",
             "Marca",
-            "Código loja",
+            "Código Loja",
+            "Loja",
             "Quantidade",
             "Preço unitário"
         ]
@@ -140,7 +141,9 @@ class Pagina_inicial:
         rowdata = []
 
         for prod in produto.listar():
-            rowdata.append((prod["codigo"],prod["nome"],prod["descricao"],prod["tipo_produto"],prod["marca"],prod["codigo_loja"],prod["quantidade"],prod["preco_unitario"]))
+            connector = Connector(path_banco)
+            result = connector.procurar("Loja", prod["codigo_loja"], coluna="codigo")
+            rowdata.append((prod["codigo"],prod["nome"],prod["descricao"],prod["tipo_produto"],prod["marca"],prod["codigo_loja"],result["nome"],prod["quantidade"],prod["preco_unitario"]))
 
 
         self.dt = Tableview(
@@ -160,15 +163,14 @@ class Pagina_inicial:
         verscrlbar.pack(side='right', fill='y')
         self.dt.view.configure(yscrollcommand = verscrlbar.set)
         self.dt.view.bind("<<TreeviewSelect>>", lambda e: self.bind_atualiza_campos())
+        self.dt.view['displaycolumns'] = ('0', '1', '2', '3', '4', '6', '7', '8')
 
 
     def ux_barra_superior_comprador(self):
         frm_barra = ttk.Frame(self.frm_principal); frm_barra.pack(expand=True, anchor="n", pady=20)
         ttk.Label(frm_barra, text="Pesquisar por: ", font=(None, 16)).pack(side="left", padx=10)
-        cbb_pesquisar = ttk.Combobox(frm_barra); cbb_pesquisar.pack(side="left", padx=10)
+        cbb_pesquisar = ttk.Combobox(frm_barra, values=[*self.filtros.keys()], state="readonly"); cbb_pesquisar.pack(side="left", padx=10); cbb_pesquisar.set("Código")
         ent_pesquisar = ttk.Entry(frm_barra, width=50); ent_pesquisar.pack(side="left", padx=10)
-        ttk.Label(frm_barra, text="Filtros: ", font=(None, 16)).pack(side="left", padx=10)
-        cbb_filtros = ttk.Combobox(frm_barra); cbb_filtros.pack(side="left", padx=10)
         mb=ttk.Menubutton(frm_barra,text='Meu perfil', bootstyle="dark-outline");  mb.pack(side="left")
         mb.menu=ttk.Menu(mb)
         mb['menu']=mb.menu

@@ -4,7 +4,7 @@ from connector import Connector
 
 class Loja(Connector):
     def __init__(self, codigo_loja, cnpj, nome, email):
-        Connector.__init__(path_banco)
+        Connector.__init__(self, path_banco)
         self.__codigo_loja = self.validate_codigo(codigo_loja)
         self.__cnpj = self.validate_cnpj(cnpj)
         self.__nome = self.validate_nome(nome)
@@ -64,3 +64,19 @@ class Loja(Connector):
 
     def listar(self):
         return self.listar_tabela("Loja")
+    
+if __name__ == "__main__":
+    connector = Connector(path_banco)
+    result = connector.procurar("Loja", 2, coluna="codigo")
+    print(result["nome"])
+    # Testes...
+    # loja = Loja(codigo_loja=0,
+    #             cnpj="111111111",
+    #             nome="Kabum",
+    #             email="kabum@kabum.com.br")
+    
+    # params_loja= dict(cnpj=loja.cnpj,
+    #                   nome=loja.nome,
+    #                   email=loja.email)
+    
+    # loja.criar("Loja", **params_loja)
