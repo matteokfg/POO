@@ -61,7 +61,7 @@ class Tela_carrinho:
                            command = self.dt.view.yview)
         verscrlbar.pack(side='right', fill='y')
         self.dt.view.configure(yscrollcommand = verscrlbar.set)
-        self.dt.view.bind("<<TreeviewSelect>>", lambda e: self.bind_atualiza_campos())
+        #self.dt.view.bind("<<TreeviewSelect>>", lambda e: self.bind_atualiza_campos())
         self.dt.view['displaycolumns'] = ('0', '1', '2', '3', '4', '6', '7', '8')
 
     def ux(self):
@@ -71,5 +71,6 @@ class Tela_carrinho:
             self.ux_tabela_carrinho()
         else:
             ttk.Label(self.frm_principal, text="Você ainda não tem produtos adicionado ao carrinho!", font=(None,10)).pack(pady=30)
+            ttk.Button(self.frm_principal, text="Voltar", bootstyle="secondary-outline" ,command=self.root.destroy).pack()
 
         
