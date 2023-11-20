@@ -1,4 +1,5 @@
 from util_ux import *
+from classes.carrinho_ux import Tela_carrinho
 
 
 class Pagina_inicial:
@@ -21,6 +22,7 @@ class Pagina_inicial:
                                 quantidades=[],
                                 codigo_comprador=self.perfil.codigo,
                                 codigos_lojas=[])
+        self.params_carrinho = {}
         self.inicializa_variaveis()
         self.ux()
 
@@ -59,13 +61,13 @@ class Pagina_inicial:
                                            quantidade,
                                            int(self.var_cod_loja.get()))
             
-            params_carrinho = dict(codigo = self.carrinho.codigo,
+            self.params_carrinho = dict(codigo = self.carrinho.codigo,
                                    codigos_produto = self.carrinho.codigos_produtos,
                                    quantidades=self.carrinho.quantidades,
                                    codigo_comprador=self.carrinho.codigo_comprador,
                                    codigos_loja=self.carrinho.codigos_lojas)
             
-            print(params_carrinho)
+            print(self.params_carrinho)
 
     def ux_dados_produto(self):
 
@@ -176,7 +178,7 @@ class Pagina_inicial:
         mb['menu']=mb.menu
         from classes.cadastro_pessoa_ux import Cadastro_Pessoa
         mb.menu.add_command(label='Meus dados', command=lambda: Cadastro_Pessoa(ttk.Toplevel(), self.root, self.tipo, perfil=self.perfil))
-        mb.menu.add_command(label='Carrinho')
+        mb.menu.add_command(label='Carrinho', command=lambda: Tela_carrinho(ttk.Toplevel(),self.root, self.params_carrinho))
         mb.menu.add_command(label='Sair', command=self.root.destroy)
         
     def ux(self):

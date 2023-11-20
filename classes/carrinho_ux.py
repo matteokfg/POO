@@ -1,14 +1,26 @@
 from util_ux import *
 
-class Carrinho:
+class Tela_carrinho:
 
-    def __init__(self, root, master, carrinho):
+    def __init__(self, root, master, params_carrinho):
         self.root = root
         self.master = master
-        self.carrinho = carrinho
+        self.params_carrinho = params_carrinho
         self.ux()
 
     def ux_tabela_carrinho(self):
+
+        frm_tabela = ttk.Frame(self.frm_principal); frm_tabela.pack(anchor="n", fill="both", padx=150)
+
+        produto = Produto(codigo=0,
+                    nome="Nome",
+                    descricao="Descricao",
+                    imagem="a",
+                    preco_unitario=2.0,
+                    tipo_produto="tipo",
+                    marca="marca",
+                    quantidade=0,
+                    codigo_loja=0)
 
         coldata = [
             "Código",
@@ -24,10 +36,13 @@ class Carrinho:
 
         rowdata = []
 
-        for prod in produto.listar():
-            connector = Connector(path_banco)
-            result = connector.procurar("Loja", prod["codigo_loja"], coluna="codigo")
-            rowdata.append((prod["codigo"],prod["nome"],prod["descricao"],prod["tipo_produto"],prod["marca"],prod["codigo_loja"],result["nome"],prod["quantidade"],prod["preco_unitario"]))
+        for n, item in enumerate(self.params_carrinho["codigos_produto"]):
+
+            for prod in produto.listar():
+                connector = Connector(path_banco)
+                result = connector.procurar("Loja", prod["codigo_loja"], coluna="codigo")
+                if self.params_carrinho["codigos_produto"][n] == prod["codigo"] and self.params_carrinho["codigos_loja"][n] == prod["codigo_loja"]:
+                    rowdata.append((prod["codigo"],prod["nome"],prod["descricao"],prod["tipo_produto"],prod["marca"],prod["codigo_loja"],result["nome"],prod["quantidade"],prod["preco_unitario"]))
 
 
         self.dt = Tableview(
@@ -51,6 +66,10 @@ class Carrinho:
 
     def ux(self):
         self.frm_principal = ttk.Frame(self.root); self.frm_principal.pack(fill="both", anchor='n')
-        ttk.Label(self.frm_principal, text="Carrinho", font=(None,16))
+        ttk.Label(self.frm_principal, text="Carrinho", font=(None,16)).pack()
+        if len(self.params_carrinho) > 0:
+            self.ux_tabela_carrinho()
+        else:
+            ttk.Label(self.frm_principal, text="Você ainda não tem produtos adicionado ao carrinho!", font=(None,10)).pack(pady=30)
 
         
