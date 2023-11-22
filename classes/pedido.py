@@ -1,17 +1,27 @@
-from util import validate_inteiro, validate_float, path_banco
+from util import validate_inteiro, validate_float, validate_forma_pagamento, path_banco
 from connector import Connector
 from compra import Compra
 from tkinter import messagebox
 
 
 class Pedido(Connector, Compra):
-    def __init__(self, codigo, codigos_produtos, quantidades, codigo_comprador, codigos_lojas):
-        Connector.__init__(path_banco)
+    def __init__(self, codigo, codigos_produtos, quantidades, codigo_comprador, codigos_lojas, forma_pagamento):
+        Connector.__init__(self, path_banco)
         self.__codigo = self.validate_codigo(codigo)
         self.__codigos_produtos = self.validate_lista_inteiros(codigos_produtos)
         self.__quantidades = self.validate_lista_inteiros(quantidades)
         self.__codigo_comprador = self.validate_codigo(codigo_comprador)
         self.__codigos_lojas = self.validate_lista_inteiros(codigos_lojas)
+        self.__forma_pagamento = self.validate_pagamento(forma_pagamento)
+
+    @property
+    def forma_pagamento(self):
+        return self.__forma_pagamento
+
+    @forma_pagamento.setter
+    def forma_pagamento(self, nova_forma_pagamento):
+        if validate_forma_pagamento(nova_forma_pagamento):
+            self.__forma_pagamento = nova_forma_pagamento
 
     @property
     def codigo(self):
@@ -67,6 +77,10 @@ class Pedido(Connector, Compra):
     def validate_codigo(self, codigo):
         if validate_inteiro(codigo):
             return codigo
+        
+    def validate_pagamento(self, fp):
+        if validate_forma_pagamento(fp):
+            return fp
 
     def validate_lista_inteiros(self, inteiros):
         validado = []

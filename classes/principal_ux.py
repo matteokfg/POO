@@ -1,5 +1,6 @@
 from util_ux import *
 from classes.carrinho_ux import Tela_carrinho
+from classes.comentario_ux import Tela_comentario
 
 
 class Pagina_inicial:
@@ -34,7 +35,7 @@ class Pagina_inicial:
         self.var_marca = ttk.StringVar()
         self.var_loja = ttk.StringVar()
         self.var_quantidade = ttk.StringVar()
-        self.var_cod_loja = ttk.StringVar()
+        self.var_cod_loja = ttk.IntVar()
         self.var_preco = ttk.DoubleVar()
 
     def bind_atualiza_campos(self):
@@ -62,10 +63,10 @@ class Pagina_inicial:
                                            int(self.var_cod_loja.get()))
             
             self.params_carrinho = dict(codigo = self.carrinho.codigo,
-                                   codigos_produto = self.carrinho.codigos_produtos,
+                                   codigos_produtos = self.carrinho.codigos_produtos,
                                    quantidades=self.carrinho.quantidades,
                                    codigo_comprador=self.carrinho.codigo_comprador,
-                                   codigos_loja=self.carrinho.codigos_lojas)
+                                   codigos_lojas=self.carrinho.codigos_lojas)
             
             print(self.params_carrinho)
 
@@ -110,7 +111,9 @@ class Pagina_inicial:
         tk.Entry(frm_codigo_produto, font=(None,18), textvariable=self.var_preco).pack(fill="x", expand=True)
         frm_codigo_produto = ttk.Frame(frm_campos); frm_codigo_produto.pack(fill="x", expand=True, side='left', padx=20)
         ttk.Label(frm_codigo_produto).pack(anchor="w")
-        tk.Button(frm_codigo_produto, text="Adicionar ao carrinho", autostyle=False, font=(None,14), background='white', foreground='black', cursor='hand2', command=self.fun_adicionar_ao_carrinho).pack(fill="x", expand=True)
+        frm_btns = ttk.Frame(frm_codigo_produto); frm_btns.pack(fill="x", expand=True)
+        ttk.Button(frm_codigo_produto, text="Comentários", bootstyle="dark-outline", command=lambda: Tela_comentario(ttk.Toplevel(), self.root, "Comentario", codigo_produto=self.var_codigo_produto.get(), codigo_loja=self.var_cod_loja.get(), perfil=self.perfil)).pack(side='left', ipady=5)
+        ttk.Button(frm_codigo_produto, text="Adicionar ao carrinho", bootstyle="primary-outline", command=self.fun_adicionar_ao_carrinho).pack(side='left', padx=(10,0), ipady=5)
 
 
 

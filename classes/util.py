@@ -71,3 +71,9 @@ def validate_cpf(cpf):
             return True
     messagebox.showerror('',"Apenas são permitidos valores do tipo CEP!")
     return False
+
+def validate_forma_pagamento(forma_pagamento):
+    if forma_pagamento in ["Boleto", "Cartão", "Pix"]:
+        return True
+    messagebox.showerror('', 'Forma de pagamento inválida')
+    return False

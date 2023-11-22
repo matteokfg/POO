@@ -89,6 +89,11 @@ class Cadastro_Pessoa:
         self.var_cpf = ttk.StringVar()
         self.var_rg = ttk.StringVar()
         self.var_cartao = ttk.StringVar()
+        #Loja
+        self.var_codigo_loja = ttk.IntVar()
+        self.var_cnpj = ttk.StringVar()
+        self.var_nome_loja = ttk.StringVar()
+        self.var_email_loja = ttk.StringVar()
 
 
     def fun_entrar(self, perfil):
@@ -99,6 +104,15 @@ class Cadastro_Pessoa:
     def fun_cadastrar(self):
 
         if self.tipo == "Vendedor":
+
+            loja = Loja(codigo_loja=0,
+                        cnpj=self.var_cnpj.get(),
+                        nome=self.var_nome_loja.get(),
+                        email=self.var_email_loja.get())
+            
+            params_loja = dict(cnpj=loja.cnpj,
+                               nome=loja.nome,
+                               email=loja.email)
 
             vendedor = Vendedor(codigo=0,
                      nome=self.var_nome.get(),
@@ -119,7 +133,13 @@ class Cadastro_Pessoa:
             for dado in params_vendedor:
                 if params_vendedor[dado] == None:
                     return
-
+                
+            for dado in params_loja:
+                if params_loja[dado] == None:
+                    return
+                
+            loja.criar("Loja", **params_loja); codigo_loja = loja.codigo_inserido
+            params_vendedor["codigo_loja"] = codigo_loja
             vendedor.criar(self.tipo, **params_vendedor)
 
             self.fun_entrar(vendedor)
@@ -217,6 +237,30 @@ class Cadastro_Pessoa:
             ttk.Entry(frm_cartao, textvariable=self.var_cartao).pack(fill="x")
         
         self.notebook.add(frm_informacoes_gerais, text='Informações gerais')
+
+    def ux_loja(self):
+
+        frm_informacoes_gerais = ttk.Frame(self.notebook); frm_informacoes_gerais.pack(fill="both", expand=True)
+        frm_informacoes= ttk.Frame(frm_informacoes_gerais); frm_informacoes.pack(fill="both", expand=True, padx=50)
+        
+        frm_codigo_loja = ttk.Frame(frm_informacoes); frm_codigo_loja.pack(pady=10, fill="x")
+        ttk.Label(frm_codigo_loja, text="Código").pack(anchor="w")
+        ttk.Entry(frm_codigo_loja, textvariable=self.var_codigo_loja, state="readonly").pack(fill="x")
+        
+        frm_cnpj = ttk.Frame(frm_informacoes); frm_cnpj.pack(pady=10, fill="x")
+        ttk.Label(frm_cnpj, text="CNPJ").pack(anchor="w")
+        ttk.Entry(frm_cnpj, textvariable=self.var_cnpj).pack(fill="x")
+        
+        frm_nome_loja = ttk.Frame(frm_informacoes); frm_nome_loja.pack(pady=10, fill="x")
+        ttk.Label(frm_nome_loja, text="Nome").pack(anchor="w")
+        ttk.Entry(frm_nome_loja, textvariable=self.var_nome_loja).pack(fill="x")
+        
+        frm_email_loja = ttk.Frame(frm_informacoes); frm_email_loja.pack(pady=10, fill="x")
+        ttk.Label(frm_email_loja, text="Email").pack(anchor="w")
+        ttk.Entry(frm_email_loja, textvariable=self.var_email_loja).pack(fill="x")
+        
+        self.notebook.add(frm_informacoes_gerais, text='Loja')
+
         
     def ux_endereco(self):
         
@@ -262,6 +306,8 @@ class Cadastro_Pessoa:
         self.ux_informacoes_gerais()
         if self.tipo == "Comprador":
             self.ux_endereco()
+        elif self.tipo == "Vendedor":
+            self.ux_loja()
             
         frm_botoes = ttk.Frame(frm_principal); frm_botoes.pack(pady=10, fill="x")
         self.btn_success = ttk.Button(frm_botoes, text="Cadastrar", bootstyle="success-outline", command=self.fun_cadastrar); self.btn_success.pack(pady=10, fill="x")
