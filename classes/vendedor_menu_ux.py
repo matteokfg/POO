@@ -185,12 +185,14 @@ class Pagina_inicial:
         mb['menu']=mb.menu
         from classes.cadastro_pessoa_ux import Cadastro_Pessoa  # COLOCAR NO INICIO, JUNTO COM OS OUTROS IMPORTS?
         mb.menu.add_command(label='Meus dados', command=lambda: Cadastro_Pessoa(ttk.Toplevel(), self.root, self.tipo, perfil=self.perfil))
-        mb.menu.add_command(label='Carrinho', command=lambda: Tela_carrinho(ttk.Toplevel(),self.root, self.params_carrinho))
+        # mb.menu.add_command(label='Carrinho', command=lambda: Tela_carrinho(ttk.Toplevel(),self.root, self.params_carrinho))
         mb.menu.add_command(label='Sair', command=self.root.destroy)
         
     def ux(self):
         self.frm_principal = ttk.Frame(self.root); self.frm_principal.pack(fill="both", anchor='n')
-        if self.tipo == "Comprador":
+        if self.tipo == "Vendedor": #"Comprador"
             self.ux_barra_superior_comprador()
-            self.ux_tabela_comprador()
+            # self.ux_tabela_comprador()
+            self.ux_tabela_vendedor()
             self.ux_dados_produto()
+        
