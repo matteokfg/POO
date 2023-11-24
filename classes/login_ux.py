@@ -88,3 +88,5 @@ class Login:
         mb['menu']=mb.menu
         mb.menu.add_command(label='Sou comprador', command=lambda:Cadastro_Pessoa(ttk.Toplevel(), self.root, "Comprador"))
         mb.menu.add_command(label='Sou vendedor', command=lambda:Cadastro_Pessoa(ttk.Toplevel(), self.root, "Vendedor"))
+        self.var_nome.set("Matteo")
+        self.var_senha.set("123")

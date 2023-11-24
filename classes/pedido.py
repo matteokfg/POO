@@ -96,3 +96,24 @@ class Pedido(Connector, Compra):
 
     def listar(self):
         return self.listar_tabela("Pedido")
+    
+# Teste
+
+if __name__ == "__main__":
+        
+    
+    tipo = "Pedido"
+    
+    pedido = Pedido(codigo=0, 
+                    codigos_produtos=[0], 
+                    quantidades=[0], 
+                    codigo_comprador=0, 
+                    codigos_lojas=[0], 
+                    forma_pagamento="Boleto")
+    
+    for ped in pedido.listar():
+        if 2 in ped['codigos_lojas']:
+            print(ped)
+        
+        
+    input()

@@ -41,3 +41,7 @@ def on_closing(root, master):
 def destruir_elementos(root):
     for w in root.winfo_children():
         w.destroy()
+        
+def limpar_campos(variaveis):
+    for variavel in variaveis:
+        variavel.set("")

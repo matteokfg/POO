@@ -2,12 +2,14 @@ from util_ux import *
 
 class Tela_carrinho:
 
-    def __init__(self, root, master, params_carrinho):
+    def __init__(self, root, master, params_carrinho, perfil):
         self.root = root
         self.root.state('zoomed')
+        self.root.grab_set()
         self.master = master
         self.params_carrinho = params_carrinho
         self.tipo = "Pedido"
+        self.perfil = perfil
         self.ux()
 
     def fun_fazer_pagamento(self, forma_pagamento):
@@ -31,6 +33,10 @@ class Tela_carrinho:
             
         pedido.criar(self.tipo, **params_pedido)
         messagebox.showinfo('', f'Pedido {pedido.codigo_inserido} criado!')
+        from classes.cadastro_pessoa_ux import Pagina_inicial
+        self.root.destroy()
+        destruir_elementos(self.master)
+        Pagina_inicial(self.master, "Comprador", self.perfil)
 
     def ux_tabela_carrinho(self):
 
@@ -67,8 +73,8 @@ class Tela_carrinho:
                 connector = Connector(path_banco)
                 result = connector.procurar("Loja", prod["codigo_loja"], coluna="codigo")
                 if self.params_carrinho["codigos_produtos"][n] == prod["codigo"] and self.params_carrinho["codigos_lojas"][n] == prod["codigo_loja"]:
-                    rowdata.append((prod["codigo"],prod["nome"],prod["descricao"],prod["tipo_produto"],prod["marca"],prod["codigo_loja"],result["nome"],prod["quantidade"],prod["preco_unitario"]))
-                    preco_total = float(preco_total + (prod["quantidade"]*prod["preco_unitario"]))
+                    rowdata.append((prod["codigo"],prod["nome"],prod["descricao"],prod["tipo_produto"],prod["marca"],prod["codigo_loja"],result["nome"],self.params_carrinho["quantidades"][n],prod["preco_unitario"]))
+                    preco_total = float(preco_total + (self.params_carrinho["quantidades"][n]*prod["preco_unitario"]))
 
 
         self.dt = Tableview(

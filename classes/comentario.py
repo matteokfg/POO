@@ -75,3 +75,30 @@ class Comentario(Connector):
 
     def listar(self):
         return self.listar_tabela("Comentario")
+    
+if __name__ == "__main__":
+    
+    
+    tipo = "Comentario"
+    
+    comentario = Comentario(codigo=0, 
+                            codigo_comprador=1, 
+                            codigo_produto=2, 
+                            codigo_loja=2, 
+                            descricao="Produto excelente, recomendo")
+    
+    params_comentario= dict(
+          codigo_comprador = comentario.codigo_comprador,
+          codigo_produto = comentario.codigo_produto,
+          codigo_loja = comentario.codigo_loja,
+          descricao = comentario.descricao,
+          )
+    
+    for dado in params_comentario:
+        if params_comentario[dado] == None:
+            exit()
+        
+    
+    comentario.criar(tipo, **params_comentario)
+    print("Funcionou")
+    input()

@@ -96,6 +96,7 @@ class Connector:
                 print("Objeto nao encontrado!")
             with open(self.path_bd, 'w', encoding="utf-8") as bd_json:
                 json.dump(data, bd_json)    #salvo as alteracoes no bd.json
+            messagebox.showinfo('','Registro excluído com sucesso!')
             return deletado
         else:
             return None
