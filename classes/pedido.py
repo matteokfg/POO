@@ -5,7 +5,7 @@ from tkinter import messagebox
 
 
 class Pedido(Connector, Compra):
-    def __init__(self, codigo, codigos_produtos, quantidades, codigo_comprador, codigos_lojas, forma_pagamento, lista_status):
+    def __init__(self, codigo, codigos_produtos, quantidades, codigo_comprador, codigos_lojas, forma_pagamento, status):
         Connector.__init__(self, path_banco)
         self.__codigo = self.validate_codigo(codigo)
         self.__codigos_produtos = self.validate_lista_inteiros(codigos_produtos)
@@ -13,16 +13,16 @@ class Pedido(Connector, Compra):
         self.__codigo_comprador = self.validate_codigo(codigo_comprador)
         self.__codigos_lojas = self.validate_lista_inteiros(codigos_lojas)
         self.__forma_pagamento = self.validate_pagamento(forma_pagamento)
-        self.__lista_status = self.validate_lista_status(lista_status)
+        self.__status = self.validate_status(status)
 
     @property
-    def lista_status(self):
-        return self.__lista_status
+    def status(self):
+        return self.__status
 
-    @lista_status.setter
-    def lista_status(self, nova_lista_status):
-        if self.validate_lista_status(nova_lista_status):
-            self.__lista_status = nova_lista_status
+    @status.setter
+    def status(self, nova_status):
+        if self.validate_status(nova_status):
+            self.__status = nova_status
     
     @property
     def forma_pagamento(self):
@@ -104,17 +104,11 @@ class Pedido(Connector, Compra):
         else:
             return inteiros
         
-    def validate_lista_status(self, nova_lista_status):
-        validadores = []
-        for status in nova_lista_status:
-            if status in ["Preparando", "No transporte", "Entregue"]:
-                validadores.append(True)
-            else:
-                validadores.append(False)
-        if False in validadores:
+    def validate_lista_status(self, novo_status):
+        if novo_status not in ["Preparando", "No transporte", "Entregue"]:
             messagebox.showerror('', "Status invalido!")
         else:
-            return nova_lista_status
+            return novo_status
 
     def listar(self):
         return self.listar_tabela("Pedido")
