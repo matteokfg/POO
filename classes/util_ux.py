@@ -28,6 +28,7 @@ from classes.carrinho import Carrinho
 from classes.pedido import Pedido
 from classes.loja import Loja
 from classes.comentario import Comentario
+from classes.endereco import Endereco
 from ttkbootstrap import localization
 from util import path_banco
 

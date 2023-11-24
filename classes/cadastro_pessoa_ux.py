@@ -185,6 +185,7 @@ class Cadastro_Pessoa:
             
             comprador.criar(self.tipo, **params_comprador)
 
+
             self.fun_entrar(comprador)
 
             
