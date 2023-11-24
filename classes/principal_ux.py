@@ -16,7 +16,7 @@ class Pagina_inicial:
         self.filtros = {"Código Produto": "codigo",
                         "Nome": "nome",
                         "Descrição": "descricao",
-                        "Tipo": "tipo_produto",
+                        "Tipo": "tipo",
                         "Marca": "marca",
                         "Código Loja": "codigo_loja"}
         if self.tipo == "Vendedor":
