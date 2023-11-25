@@ -17,16 +17,19 @@ class Tela_detalhes_pedido:
 
         frm_tabela = ttk.Frame(self.frm_principal); frm_tabela.pack(anchor="n", fill="both", padx=150)
         preco_total = 0
+        
 
-        produto = Produto(codigo=0,
-                    nome="Nome",
-                    descricao="Descricao",
-                    imagem="a",
-                    preco_unitario=2.0,
-                    tipo_produto="tipo",
-                    marca="marca",
-                    quantidade=0,
-                    codigo_loja=0)
+        rowdata = []
+    
+        for ped in self.pedido.listar():
+            if self.perfil.codigo_loja in ped['codigos_lojas']:
+                connector = Connector(path_banco)
+                for s, cod_produto in enumerate(ped['codigos_produtos']):
+                    connector = Connector(path_banco)
+                    result = connector.procurar("Produto", cod_produto, coluna="codigo")
+                    result2 = connector.procurar("Comprador", ped['codigo_comprador'], coluna="codigo")
+                    rowdata.append((result["codigo"],result["nome"],result["descricao"],result["tipo_produto"],result["marca"],result["codigo_loja"],result2["nome"],ped["quantidades"][s],result["preco_unitario"]))
+                    preco_total = preco_total + (ped["quantidades"][s] * result["preco_unitario"])
 
         coldata = [
             "Código",
@@ -35,12 +38,12 @@ class Tela_detalhes_pedido:
             "Tipo",
             "Marca",
             "Código Loja",
-            "Loja",
+            "Comprador",
             "Quantidade",
             "Preço unitário"
         ]
 
-        rowdata = []
+        
 
 
 
@@ -62,18 +65,14 @@ class Tela_detalhes_pedido:
         self.dt.view.configure(yscrollcommand = verscrlbar.set)
 
         frm_btns = ttk.Frame(self.frm_principal); frm_btns.pack(anchor="w", fill="x", padx=(150,0), pady=20)
-        ttk.Label(frm_btns, text="Preço Total (R$): ", font=(None,16)).pack(side="left")
+        ttk.Label(frm_btns, text=f"Preço Total (R$): {preco_total}", font=(None,16)).pack(side="left")
         ttk.Label(frm_btns, text=f"{0}".replace('.',','), font=(None,16)).pack(side="left")
         ttk.Button(frm_btns, text="Voltar", bootstyle="dark-outline", command=self.root.destroy).pack(side="left", padx=(10,10))
-        mb=ttk.Menubutton(frm_btns,text='Ação', bootstyle="primary");  mb.pack(side="left")
-        mb.menu=ttk.Menu(mb)
-        mb['menu']=mb.menu
-        mb.menu.add_command(label='Finalizar pedido')
         
 
     def ux(self):
         self.frm_principal = ttk.Frame(self.root); self.frm_principal.pack(fill="both", anchor='n')
-        ttk.Label(self.frm_principal, text="Pedido {}", font=(None,16)).pack()
+        self.lbl = ttk.Label(self.frm_principal, text=f"Pedido {self.pedido.codigo}", font=(None,16)); self.lbl.pack()
         self.ux_tabela_detalhes()
 
         

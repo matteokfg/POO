@@ -11,6 +11,12 @@ class Tela_Pedido:
         self.tipo = "Pedido"
         self.perfil = perfil
         self.ux()
+
+    def bind_pedido_num(self):
+
+        if len(self.dt.view.get_children()) > 0:
+            for lin in self.dt.get_rows(selected=True):
+                self.pedido.codigo = lin.values[0]
         
     def fun_pesquisar(self):
         
@@ -83,6 +89,7 @@ class Tela_Pedido:
         verscrlbar.pack(side='right', fill='y')
         self.dt.view.configure(yscrollcommand = verscrlbar.set)
         self.dt.view['displaycolumns'] = ('0', '2', '3')
+        self.dt.view.bind("<<TreeviewSelect>>", lambda e: self.bind_pedido_num())
 
         frm_btns = ttk.Frame(self.frm_principal); frm_btns.pack(pady=20)
         ttk.Button(frm_btns, text="Voltar", bootstyle="dark-outline", command=self.root.destroy).pack(side="left")

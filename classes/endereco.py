@@ -2,16 +2,15 @@ from connector import Connector
 from util import validate_inteiro, validate_cep, path_banco
 
 class Endereco(Connector):
-    def __init__(self, codigo, logradouro, numero, complemento, cidade, uf, cep, codigo_comprador):
+    def __init__(self, codigo, logradouro, numero, complemento, cidade, uf, cep):
         Connector.__init__(self, path_banco)
-        self.__codigo = self.validate_numero(codigo)
+        self.__codigo = codigo
         self.__logradouro = logradouro
         self.__numero = self.validate_numero(numero)
         self.__complemento = complemento
         self.__cidade = cidade
         self.__uf = uf
         self.__cep = self.validate_this_cep(cep)
-        self.__codigo_comprador = self.validate_numero(codigo_comprador)
 
     @property
     def codigo(self):
@@ -19,8 +18,7 @@ class Endereco(Connector):
 
     @codigo.setter
     def codigo(self, novo_codigo):
-        if validate_inteiro(novo_codigo):
-            self.__codigo = novo_codigo
+        self.__codigo = novo_codigo
 
     @property
     def logradouro(self):
@@ -71,15 +69,6 @@ class Endereco(Connector):
     def cep(self, novo_cep):
         if validate_cep(novo_cep):
             self.__cep = novo_cep
-
-    @property
-    def codigo_comprador(self):
-        return self.__codigo_comprador
-
-    @codigo_comprador.setter
-    def codigo_comprador(self, novo_codigo_comprador):
-        if validate_inteiro(novo_codigo_comprador):
-            self.__codigo_comprador = novo_codigo_comprador
 
     def validate_numero(self, numero):
         if validate_inteiro(numero):

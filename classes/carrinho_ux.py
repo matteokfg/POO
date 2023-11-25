@@ -32,11 +32,35 @@ class Tela_carrinho:
                 return
             
         pedido.criar(self.tipo, **params_pedido)
-        messagebox.showinfo('', f'Pedido {pedido.codigo_inserido} criado!')
-        from classes.cadastro_pessoa_ux import Pagina_inicial
-        self.root.destroy()
-        destruir_elementos(self.master)
-        Pagina_inicial(self.master, "Comprador", self.perfil)
+
+        for x, cod_prod in enumerate(pedido.codigos_produtos):
+            connector = Connector(path_banco)
+            result = connector.procurar("Produto", cod_prod, coluna="codigo")
+            self.produto = Produto(codigo=result['codigo'],
+                            nome=result['nome'],
+                            descricao=result['descricao'],
+                            imagem="",
+                            preco_unitario=float(result['preco_unitario']),
+                            tipo_produto=result['tipo_produto'],
+                            marca=result['marca'],
+                            quantidade=int(result['quantidade'] - pedido.quantidades[x]),
+                            codigo_loja=int(result['codigo_loja']))
+            params_produto= dict(codigo=self.produto.codigo,
+                            nome=self.produto.nome,
+                            descricao=self.produto.descricao,
+                            imagem="",
+                            preco_unitario=float(self.produto.preco_unitario),
+                            tipo_produto=self.produto.tipo,
+                            marca=self.produto.marca,
+                            quantidade=int(self.produto.quantidade),
+                            codigo_loja=int(self.produto.codigo_loja))
+            if self.produto.atualizar("Produto", **params_produto) != None:
+
+                messagebox.showinfo('', f'Pedido {pedido.codigo_inserido} criado!')
+                from classes.cadastro_pessoa_ux import Pagina_inicial
+                self.root.destroy()
+                destruir_elementos(self.master)
+                Pagina_inicial(self.master, "Comprador", self.perfil)
 
     def ux_tabela_carrinho(self):
 
@@ -99,7 +123,6 @@ class Tela_carrinho:
         frm_btns = ttk.Frame(self.frm_principal); frm_btns.pack(anchor="w", fill="x", padx=(150,0), pady=20)
         ttk.Label(frm_btns, text="Preço Total (R$): ", font=(None,16)).pack(side="left")
         ttk.Label(frm_btns, text=f"{preco_total:.2f}".replace('.',','), font=(None,16)).pack(side="left")
-        ttk.Button(frm_btns, text="Excluir selecionados", bootstyle="danger-outline").pack(side="left", padx=(50,0))
         ttk.Button(frm_btns, text="Voltar", bootstyle="dark-outline", command=self.root.destroy).pack(side="left", padx=(10,10))
         mb=ttk.Menubutton(frm_btns,text='Fazer pagamento', bootstyle="primary");  mb.pack(side="left")
         mb.menu=ttk.Menu(mb)

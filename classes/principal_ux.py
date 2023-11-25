@@ -16,7 +16,7 @@ class Pagina_inicial:
         self.filtros = {"Código Produto": "codigo",
                         "Nome": "nome",
                         "Descrição": "descricao",
-                        "Tipo": "tipo",
+                        "Tipo": "tipo_produto",
                         "Marca": "marca",
                         "Código Loja": "codigo_loja"}
         if self.tipo == "Vendedor":
@@ -317,8 +317,9 @@ class Pagina_inicial:
         mb.menu=ttk.Menu(mb)
         mb['menu']=mb.menu
         from classes.cadastro_pessoa_ux import Cadastro_Pessoa
-        mb.menu.add_command(label='Meus dados', command=lambda: Cadastro_Pessoa(ttk.Toplevel(), self.root, self.tipo, perfil=self.perfil))
+        
         if self.tipo == "Comprador":
+            mb.menu.add_command(label='Meus dados', command=lambda: Cadastro_Pessoa(ttk.Toplevel(), self.root, self.tipo, perfil=self.perfil))
             mb.menu.add_command(label='Carrinho', command=lambda: Tela_carrinho(ttk.Toplevel(),self.root,self.params_carrinho, self.perfil))
         elif self.tipo == "Vendedor":
             mb.menu.add_command(label='Pedidos', command=lambda: Tela_Pedido(ttk.Toplevel(),self.root, self.perfil))

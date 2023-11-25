@@ -162,28 +162,42 @@ class Cadastro_Pessoa:
                         rg=self.var_rg.get(),
                         cartao=self.var_cartao.get())
             
+            endereco = Endereco(codigo=0,)
+            
             params_comprador = dict(
                   nome = comprador.nome,
                   senha = comprador.senha,
                   data_de_nascimento = comprador.data_de_nascimento,
                   email = comprador.email,
                   is_ativo = comprador.is_ativo,
-                  logradouro = comprador.logradouro,
-                  numero = comprador.numero,
-                  complemento = comprador.complemento,
-                  cidade = comprador.cidade,
-                  uf = comprador.uf,
-                  cep = comprador.cep,
                   cpf = comprador.cpf,
                   rg = comprador.rg,
                   cartao = comprador.cartao)
             
+
             for dado in params_comprador:
                 if params_comprador[dado] == None:
                     return
                 
-            
             comprador.criar(self.tipo, **params_comprador)
+            
+            params_endereco = dict(logradouro = comprador.logradouro,
+                                   numero = comprador.numero,
+                                   complemento = comprador.complemento,
+                                   cidade = comprador.cidade,
+                                   uf = comprador.uf,
+                                   cep = comprador.cep,
+                                   codigo_comprador = comprador.codigo_inserido
+                                   )
+                
+            for dado in params_endereco:
+                if params_endereco[dado] == None:
+                    return
+                
+            
+                
+
+            
 
 
             self.fun_entrar(comprador)
